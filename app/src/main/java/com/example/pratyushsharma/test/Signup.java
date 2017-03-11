@@ -31,6 +31,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
+import static com.example.pratyushsharma.test.R.id.confirmpassword_signup;
+
 public class Signup extends AppCompatActivity {
 
     private TextView name_signup;
@@ -55,7 +57,7 @@ public class Signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        comfirmpassword_signup = (TextView) findViewById(R.id.confirmpassword_signup);
+        comfirmpassword_signup = (TextView) findViewById(confirmpassword_signup);
         name_signup = (TextView)  findViewById(R.id.name_signup);
         email_signup = (TextView) findViewById(R.id.email_signup);
         password_signup = (TextView) findViewById(R.id.password_signup);
