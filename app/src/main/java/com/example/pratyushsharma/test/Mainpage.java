@@ -53,7 +53,7 @@ public class Mainpage extends AppCompatActivity {
 
 
         welcome = (TextView) findViewById(R.id.textView);
-        welcome.setText("Welcome " + name );
+        welcome.setText("Welcome "+name );
 
 
     }
