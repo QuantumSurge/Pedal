@@ -21,7 +21,6 @@ public class Mainpage extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
-    private String name;
     private String uid;
 
 
