@@ -157,34 +157,34 @@ public class Signup extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progress.dismiss();
-                        if(task.isSuccessful() && filePath != null){
+                        if(task.isSuccessful()){
+
                             firebaseAuth.signInWithEmailAndPassword(email,password);
 
                             FirebaseUser user = firebaseAuth.getCurrentUser();
 
+                            if(filePath!=null) {
+                                final StorageReference profileRef = uploadimg.child(user.getUid() + "/profile.jpg");
 
-                            final StorageReference profileRef = uploadimg.child(user.getUid()+"/profile.jpg");
+                                profileRef.putFile(filePath)
+                                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            profileRef.putFile(filePath)
-                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception exception) {
-                                            progress.dismiss();
-                                            Toast.makeText(Signup.this, "Please Upload the image again", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception exception) {
+                                                progress.dismiss();
+                                                Toast.makeText(Signup.this, "Please Upload the image again", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
 
 
 
                             Userinfo userinfo = new Userinfo(room,name);
-
 
                             databasereference.child(user.getUid()).setValue(userinfo);
 

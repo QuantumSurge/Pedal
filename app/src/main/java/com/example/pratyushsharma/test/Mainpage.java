@@ -23,6 +23,7 @@ public class Mainpage extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private String name;
     private ValueEventListener listener;
+    private String uid;
 
 
     @Override
@@ -32,15 +33,21 @@ public class Mainpage extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
+        uid = user.getUid();
 
         mFirebaseDatabase=FirebaseDatabase.getInstance();
-        mDatabaseReference = mFirebaseDatabase.getReference().child(user.getUid());
+        mDatabaseReference = mFirebaseDatabase.getReference();
 
         listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Userinfo userinfo = dataSnapshot.getValue(Userinfo.class);
-                name = userinfo.username;
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+
+                    Userinfo userinfo = new Userinfo();
+                    userinfo.setUsername(ds.child(uid).getValue(Userinfo.class).getUsername());
+                    name = userinfo.getUsername();
+
+                }
             }
 
             @Override
@@ -53,7 +60,7 @@ public class Mainpage extends AppCompatActivity {
 
 
         welcome = (TextView) findViewById(R.id.textView);
-        welcome.setText("Welcome "+name );
+        welcome.setText("Welcome "+ name );
 
 
     }
