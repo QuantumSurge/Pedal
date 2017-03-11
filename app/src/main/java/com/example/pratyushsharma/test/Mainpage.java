@@ -22,45 +22,45 @@ public class Mainpage extends AppCompatActivity {
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
     private String name;
-    private ValueEventListener listener;
     private String uid;
 
 
-    @Override
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainpage);
 
+        welcome = (TextView) findViewById(R.id.textView);
+
         mFirebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+        final FirebaseUser user = mFirebaseAuth.getCurrentUser();
         uid = user.getUid();
 
         mFirebaseDatabase=FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
 
-        listener = new ValueEventListener() {
+
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
 
-                    Userinfo userinfo = new Userinfo();
-                    userinfo.setUsername(ds.child(uid).getValue(Userinfo.class).getUsername());
-                    name = userinfo.getUsername();
+                Userinfo userinfo = new Userinfo();
 
-                }
+                userinfo.setUsername(dataSnapshot.child(uid).getValue(Userinfo.class).getUsername());
+
+                welcome.setText("Welcome "+ userinfo.getUsername());
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        };
-
-        mDatabaseReference.addValueEventListener(listener);
+        });
 
 
-        welcome = (TextView) findViewById(R.id.textView);
-        welcome.setText("Welcome "+ name );
+
+
 
 
     }
