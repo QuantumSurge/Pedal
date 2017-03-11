@@ -1,7 +1,10 @@
 package com.example.pratyushsharma.test;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -26,8 +29,16 @@ public class BikeActivity extends AppCompatActivity {
         bikeList.add(new Bike("18R","15A410",R.drawable.icon));
 
         BikeAdapter<Bike> bikeAdapter = new BikeAdapter(this, bikeList);
+        final Intent basic = new Intent(this, MainActivity.class);
 
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(bikeAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(basic);
+
+            }
+        });
     }
 }
