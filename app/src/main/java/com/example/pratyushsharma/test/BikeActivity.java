@@ -3,6 +3,7 @@ package com.example.pratyushsharma.test;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,9 @@ public class BikeActivity extends AppCompatActivity {
         bikeList.add(new Bike("17R","15A409",R.drawable.icon));
         bikeList.add(new Bike("18R","15A410",R.drawable.icon));
 
-        ArrayAdapter<Bike> bikeAdapter = new ArrayAdapter<Bike>();
+        BikeAdapter<Bike> bikeAdapter = new BikeAdapter(this, bikeList);
 
+        ListView listView = (ListView) findViewById(R.id.list_view);
+        listView.setAdapter(bikeAdapter);
     }
 }
