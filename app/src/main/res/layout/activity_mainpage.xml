@@ -11,6 +11,7 @@
     tools:context="com.example.pratyushsharma.test.Mainpage">
 
     <TextView
+        android:text="You are logged in to the app."
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
