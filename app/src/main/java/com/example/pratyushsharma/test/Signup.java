@@ -3,7 +3,6 @@ package com.example.pratyushsharma.test;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -206,5 +205,5 @@ public class Signup extends AppCompatActivity {
 
     }
 
-}
+
 

@@ -1,5 +1,6 @@
 package com.example.pratyushsharma.test;
 
+
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -66,3 +67,4 @@ public class Mainpage extends AppCompatActivity {
          TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
          tabLayout.setupWithViewPager(viewPager);
      }
+
