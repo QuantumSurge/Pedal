@@ -91,7 +91,7 @@
             android:layout_marginTop="50dp" />
 
         <ImageView
-            android:layout_width="196dp"
+            android:layout_width="match_parent"
             android:layout_height="66dp"
             app:srcCompat="@android:drawable/ic_menu_camera"
             android:id="@+id/choose"
