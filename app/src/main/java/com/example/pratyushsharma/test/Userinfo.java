@@ -2,8 +2,8 @@ package com.example.pratyushsharma.test;
 
 
 public class Userinfo {
-    public String username;
     public String address;
+    public String username;
 
     public String getAddress() {
         return address;
