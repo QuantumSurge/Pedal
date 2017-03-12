@@ -73,18 +73,6 @@
         android:layout_marginTop="15dp" />
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Signup"
-        android:background="@drawable/ripple_effect"
-        android:textColor="#ECEFF1"
-        android:id="@+id/signup_btn"
-        android:layout_marginBottom="19dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/choose"/>
-
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -94,6 +82,31 @@
         android:clickable="true"
         android:layout_below="@+id/confirmpassword_signup"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/myImageViewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Select Profile pic:"
+        android:textColor="#FFFFFF"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="41dp"
+        android:layout_marginTop="50dp"
+        android:layout_above="@+id/signup_btn"
+        android:layout_below="@+id/confirmpassword_signup"
+        android:layout_toStartOf="@+id/choose" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Signup"
+        android:background="@drawable/ripple_effect"
+        android:textColor="#ECEFF1"
+        android:id="@+id/signup_btn"
+        android:layout_below="@+id/choose"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

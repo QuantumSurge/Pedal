@@ -182,19 +182,11 @@ public class Signup extends AppCompatActivity {
                                         });
                             }
 
-
+                            sendVerificationEmail();
 
                             Userinfo userinfo = new Userinfo(room,name);
-
                             databasereference.child(user.getUid()).setValue(userinfo);
 
-
-                            finish();
-                            Intent i = new Intent(Signup.this, Mainpage.class);
-                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(i);
-
-                            Toast.makeText(Signup.this,"Registered",Toast.LENGTH_SHORT).show();
                         }
                         else {
                             Toast.makeText(Signup.this,"Please Try Again",Toast.LENGTH_SHORT).show();
@@ -206,6 +198,32 @@ public class Signup extends AppCompatActivity {
 
 
 
+    }
+
+    private void sendVerificationEmail() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Signup.this,"Registered Successfully. Please verify your e-mail.",Toast.LENGTH_SHORT).show();
+                            // after email is sent just logout the user and finish this activity
+                            FirebaseAuth.getInstance().signOut();
+
+                            finish();
+                            Intent i = new Intent(Signup.this, Login.class);
+                            startActivity(i);
+                        }
+                        else
+                        {
+                            Toast.makeText(Signup.this,"There was an error. Please try again.",Toast.LENGTH_SHORT).show();
+
+                            Signup.this.recreate();
+                        }
+                    }
+                });
     }
 
 }
