@@ -30,8 +30,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
-import static com.example.pratyushsharma.test.R.id.confirmpassword_signup;
-
 public class Signup extends AppCompatActivity {
 
     private TextView name_signup;
@@ -56,7 +54,7 @@ public class Signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        comfirmpassword_signup = (TextView) findViewById(confirmpassword_signup);
+        comfirmpassword_signup = (TextView) findViewById(R.id.confirmpassword_signup);
         name_signup = (TextView)  findViewById(R.id.name_signup);
         email_signup = (TextView) findViewById(R.id.email_signup);
         password_signup = (TextView) findViewById(R.id.password_signup);
@@ -156,34 +154,34 @@ public class Signup extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progress.dismiss();
-                        if(task.isSuccessful()){
-
+                        if(task.isSuccessful() && filePath != null){
                             firebaseAuth.signInWithEmailAndPassword(email,password);
 
                             FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                            if(filePath!=null) {
-                                final StorageReference profileRef = uploadimg.child(user.getUid() + "/profile.jpg");
 
-                                profileRef.putFile(filePath)
-                                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                            @Override
-                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            final StorageReference profileRef = uploadimg.child(user.getUid()+"/profile.jpg");
 
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception exception) {
-                                                progress.dismiss();
-                                                Toast.makeText(Signup.this, "Please Upload the image again", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                            }
+                            profileRef.putFile(filePath)
+                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception exception) {
+                                            progress.dismiss();
+                                            Toast.makeText(Signup.this, "Please Upload the image again", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
 
 
 
                             Userinfo userinfo = new Userinfo(room,name);
+
 
                             databasereference.child(user.getUid()).setValue(userinfo);
 
