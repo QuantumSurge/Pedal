@@ -11,6 +11,7 @@ public class Userinfo {
 
     }
 
+
     public Userinfo(String address, String username) {
         this.address = address;
         this.username = username;
