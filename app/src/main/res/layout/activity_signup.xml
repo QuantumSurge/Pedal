@@ -18,7 +18,8 @@
     tools:context="com.example.pratyushsharma.test.Signup"
     android:background="@drawable/gradient"
     android:isScrollContainer="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
 
     <EditText
@@ -37,6 +38,18 @@
         android:ems="10"
         android:id="@+id/room_signup"
         android:layout_marginTop="15dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/mobile_signup"
+        android:layout_marginTop="15dp"
+        android:hint="Enter your Mobile number."
+        android:padding="10dp"
+        android:digits="0123456789+"
+        android:maxLength="10"/>
 
     <EditText
         android:padding="10dp"
@@ -70,14 +83,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="91dp"
         android:orientation="horizontal"
         android:weightSum="1">
 
         <TextView
             android:id="@+id/myImageViewText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="29dp"
             android:gravity="start"
             android:text="Select Profile pic:"
             android:textColor="#FFFFFF"
@@ -87,16 +100,15 @@
             android:layout_marginTop="50dp" />
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
+            android:layout_width="196dp"
+            android:layout_height="66dp"
             app:srcCompat="@android:drawable/ic_menu_camera"
             android:id="@+id/choose"
             android:layout_marginTop="25dp"
             android:clickable="true"
-            android:layout_weight="1.06" />
+            android:layout_weight="0.81" />
 
     </LinearLayout>
-
 
 
     <Button
@@ -106,7 +118,8 @@
         android:background="@drawable/ripple_effect"
         android:textColor="#ECEFF1"
         android:id="@+id/signup_btn"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:layout_weight="0.14" />
 
 
 </LinearLayout>

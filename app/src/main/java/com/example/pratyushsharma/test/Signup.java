@@ -9,8 +9,10 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
@@ -32,6 +34,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 
 import static com.example.pratyushsharma.test.R.id.confirmpassword_signup;
+import static com.example.pratyushsharma.test.R.id.mobile_signup;
 
 public class Signup extends AppCompatActivity {
 
@@ -41,6 +44,7 @@ public class Signup extends AppCompatActivity {
     private TextView email_signup;
     private TextView password_signup;
     private Button buttonsignup;
+    private TextView mobile_signup;
     private ProgressDialog progress;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databasereference;
@@ -62,6 +66,7 @@ public class Signup extends AppCompatActivity {
         email_signup = (TextView) findViewById(R.id.email_signup);
         password_signup = (TextView) findViewById(R.id.password_signup);
         room_signup = (TextView) findViewById(R.id.room_signup);
+        mobile_signup  = (EditText) findViewById(R.id.mobile_signup);
 
         buttonsignup = (Button) findViewById(R.id.signup_btn);
 
@@ -123,7 +128,9 @@ public class Signup extends AppCompatActivity {
 
         final String name = name_signup.getText().toString().trim();
 
-        String confirmpassword = comfirmpassword_signup.getText().toString().trim();
+        final String mobile = mobile_signup.getText().toString().trim();
+
+        final String confirmpassword = comfirmpassword_signup.getText().toString().trim();
 
         databasereference = FirebaseDatabase.getInstance().getReference();
 
@@ -184,7 +191,7 @@ public class Signup extends AppCompatActivity {
 
                             sendVerificationEmail();
 
-                            Userinfo userinfo = new Userinfo(room,name);
+                            Userinfo userinfo = new Userinfo(mobile,name,room);
                             databasereference.child(user.getUid()).setValue(userinfo);
 
                         }

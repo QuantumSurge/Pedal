@@ -46,8 +46,9 @@ public class Mainpage extends AppCompatActivity {
                 Userinfo userinfo = new Userinfo();
 
                 userinfo.setUsername(dataSnapshot.child(uid).getValue(Userinfo.class).getUsername());
+                userinfo.setMobile(dataSnapshot.child(uid).getValue(Userinfo.class).getMobile());
 
-                welcome.setText("Welcome "+ userinfo.getUsername());
+                welcome.setText("Welcome "+ userinfo.getUsername()+" mob:" + userinfo.getMobile());
 
             }
 

@@ -4,6 +4,13 @@ package com.example.pratyushsharma.test;
 public class Userinfo {
     public String username;
     public String address;
+    public String mobile;
+
+    public Userinfo(String mobile, String username, String address) {
+        this.mobile = mobile;
+        this.username = username;
+        this.address = address;
+    }
 
     public String getAddress() {
         return address;
@@ -25,8 +32,11 @@ public class Userinfo {
 
     }
 
-    public Userinfo(String address, String username) {
-        this.address = address;
-        this.username = username;
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }
