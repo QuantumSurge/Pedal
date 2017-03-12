@@ -15,19 +15,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+
 public class Mainpage extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;
+
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
     private String uid;
 
 
-     @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_mainpage);
+
 
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -63,4 +66,3 @@ public class Mainpage extends AppCompatActivity {
          TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
          tabLayout.setupWithViewPager(viewPager);
      }
-}

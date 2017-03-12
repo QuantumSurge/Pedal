@@ -85,7 +85,6 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this,"Logged in",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    progress.dismiss();
                     Toast.makeText(Login.this,"Please Try Again",Toast.LENGTH_SHORT).show();
                 }
 

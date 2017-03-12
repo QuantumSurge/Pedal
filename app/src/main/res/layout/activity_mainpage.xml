@@ -11,6 +11,7 @@
     android:orientation="vertical"
     tools:context="com.example.pratyushsharma.test.Mainpage">
 
+
     <android.support.design.widget.TabLayout xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
