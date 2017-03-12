@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_signup"
@@ -11,8 +17,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.pratyushsharma.test.Signup"
     android:background="@drawable/gradient"
-    android:isScrollContainer="true">
-
+    android:isScrollContainer="true"
+    android:orientation="vertical">
 
 
     <EditText
@@ -21,9 +27,7 @@
         android:id="@+id/name_signup"
         android:inputType="text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="wrap_content" />
 
     <EditText
         android:padding="10dp"
@@ -32,8 +36,6 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:id="@+id/room_signup"
-        android:layout_below="@+id/name_signup"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="15dp" />
 
     <EditText
@@ -43,9 +45,7 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/email_signup"
-        android:hint="Enter LDAP E-mail id"
-        android:layout_below="@+id/room_signup"
-        android:layout_alignParentStart="true"
+        android:hint="Enter E-mail id"
         android:layout_marginTop="15dp" />
 
     <EditText
@@ -56,8 +56,6 @@
         android:ems="10"
         android:id="@+id/password_signup"
         android:hint="Enter Password"
-        android:layout_below="@+id/email_signup"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="15dp" />
 
     <EditText
@@ -68,35 +66,38 @@
         android:ems="10"
         android:id="@+id/confirmpassword_signup"
         android:hint="Confirm Password"
-        android:layout_below="@+id/password_signup"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="15dp" />
 
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:srcCompat="@android:drawable/ic_menu_camera"
-        android:id="@+id/choose"
-        android:layout_marginTop="25dp"
-        android:clickable="true"
-        android:layout_below="@+id/confirmpassword_signup"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/myImageViewText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:text="Select Profile pic:"
-        android:textColor="#FFFFFF"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginBottom="41dp"
-        android:layout_marginTop="50dp"
-        android:layout_above="@+id/signup_btn"
-        android:layout_below="@+id/confirmpassword_signup"
-        android:layout_toStartOf="@+id/choose" />
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/myImageViewText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="Select Profile pic:"
+            android:textColor="#FFFFFF"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="41dp"
+            android:layout_marginTop="50dp" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@android:drawable/ic_menu_camera"
+            android:id="@+id/choose"
+            android:layout_marginTop="25dp"
+            android:clickable="true"
+            android:layout_weight="1.06" />
+
+    </LinearLayout>
+
+
 
     <Button
         android:layout_width="match_parent"
@@ -105,8 +106,8 @@
         android:background="@drawable/ripple_effect"
         android:textColor="#ECEFF1"
         android:id="@+id/signup_btn"
-        android:layout_below="@+id/choose"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="15dp"/>
 
 
-</RelativeLayout>
+</LinearLayout>
+</ScrollView>
