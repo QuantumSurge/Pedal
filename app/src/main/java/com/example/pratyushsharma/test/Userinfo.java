@@ -3,21 +3,11 @@ package com.example.pratyushsharma.test;
 
 public class Userinfo {
     public String username;
-    public String address;
     public String mobile;
 
-    public Userinfo(String mobile, String username, String address) {
+    public Userinfo(String mobile, String username) {
         this.mobile = mobile;
         this.username = username;
-        this.address = address;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getUsername() {

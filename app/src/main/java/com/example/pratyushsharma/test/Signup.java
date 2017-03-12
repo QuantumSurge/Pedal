@@ -39,7 +39,6 @@ import static com.example.pratyushsharma.test.R.id.mobile_signup;
 public class Signup extends AppCompatActivity {
 
     private TextView name_signup;
-    private TextView room_signup;
     private TextView comfirmpassword_signup;
     private TextView email_signup;
     private TextView password_signup;
@@ -65,7 +64,6 @@ public class Signup extends AppCompatActivity {
         name_signup = (TextView)  findViewById(R.id.name_signup);
         email_signup = (TextView) findViewById(R.id.email_signup);
         password_signup = (TextView) findViewById(R.id.password_signup);
-        room_signup = (TextView) findViewById(R.id.room_signup);
         mobile_signup  = (EditText) findViewById(R.id.mobile_signup);
 
         buttonsignup = (Button) findViewById(R.id.signup_btn);
@@ -123,8 +121,6 @@ public class Signup extends AppCompatActivity {
         final String email = email_signup.getText().toString().trim();
 
         final String password = password_signup.getText().toString().trim();
-
-        final String room = room_signup.getText().toString().trim();
 
         final String name = name_signup.getText().toString().trim();
 
@@ -191,7 +187,7 @@ public class Signup extends AppCompatActivity {
 
                             sendVerificationEmail();
 
-                            Userinfo userinfo = new Userinfo(mobile,name,room);
+                            Userinfo userinfo = new Userinfo(mobile,name);
                             databasereference.child(user.getUid()).setValue(userinfo);
 
                         }

@@ -31,15 +31,6 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:padding="10dp"
-        android:hint="Enter room (H-15A 1013)"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/room_signup"
-        android:layout_marginTop="15dp" />
-
-    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="phone"
