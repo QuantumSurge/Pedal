@@ -16,7 +16,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
@@ -78,11 +77,14 @@ public class Login extends AppCompatActivity {
                 if(task.isSuccessful()){
                     progress.dismiss();
 
-                    checkIfEmailVerified();
+                    finish();
+                    Intent i = new Intent(Login.this, Mainpage.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
 
+                    Toast.makeText(Login.this,"Logged in",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    progress.dismiss();
                     Toast.makeText(Login.this,"Please Try Again",Toast.LENGTH_SHORT).show();
                 }
 
@@ -91,27 +93,6 @@ public class Login extends AppCompatActivity {
 
 
 
-    }
-
-    private void checkIfEmailVerified() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user.isEmailVerified())
-        {
-            Toast.makeText(Login.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
-
-            finish();
-            Intent i = new Intent(Login.this, Mainpage.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(i);
-
-        }
-        else
-        {
-            FirebaseAuth.getInstance().signOut();
-            Toast.makeText(Login.this, "Please verify your e-mail.", Toast.LENGTH_SHORT).show();
-
-        }
     }
 
 
