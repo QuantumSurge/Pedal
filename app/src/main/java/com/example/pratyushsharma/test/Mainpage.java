@@ -1,35 +1,37 @@
 package com.example.pratyushsharma.test;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
+
 public class Mainpage extends AppCompatActivity {
 
-    private TextView welcome;
     private FirebaseAuth mFirebaseAuth;
+
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
     private String uid;
 
 
-     @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_mainpage);
 
-        welcome = (TextView) findViewById(R.id.textView);
+
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mFirebaseAuth.getCurrentUser();
@@ -46,10 +48,8 @@ public class Mainpage extends AppCompatActivity {
                 Userinfo userinfo = new Userinfo();
 
                 userinfo.setUsername(dataSnapshot.child(uid).getValue(Userinfo.class).getUsername());
-                userinfo.setMobile(dataSnapshot.child(uid).getValue(Userinfo.class).getMobile());
 
-                welcome.setText("Welcome "+ userinfo.getUsername()+" mob:" + userinfo.getMobile());
-
+                setTitle("Welcome " + userinfo.getUsername());
             }
 
             @Override
@@ -58,13 +58,11 @@ public class Mainpage extends AppCompatActivity {
             }
         });
 
+         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+         CategoryAdapter adapter = new CategoryAdapter(this, getSupportFragmentManager());
+         viewPager.setAdapter(adapter);
 
-
-
-
-
-    }
-
-
-
-}
+         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+         tabLayout.setupWithViewPager(viewPager);
+     }
