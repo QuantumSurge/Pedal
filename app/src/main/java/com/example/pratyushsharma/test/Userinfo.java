@@ -26,8 +26,8 @@ public class Userinfo {
     public String getMobile() {		
          return mobile;		
      }
-    public void setMobile(String mobile) {		 +    public Userinfo(String address, String username) {
-         this.mobile = mobile;		 +        this.address = address;
+    public void setMobile(String mobile) {
+         this.mobile = mobile;
          this.username = username;
       }
 }

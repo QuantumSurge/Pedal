@@ -33,12 +33,11 @@ public class Mainpage extends AppCompatActivity {
         setContentView(R.layout.activity_mainpage);
 
 
-
         mFirebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mFirebaseAuth.getCurrentUser();
         uid = user.getUid();
 
-        mFirebaseDatabase=FirebaseDatabase.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
 
 
@@ -59,12 +58,13 @@ public class Mainpage extends AppCompatActivity {
             }
         });
 
-         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-         CategoryAdapter adapter = new CategoryAdapter(this, getSupportFragmentManager());
-         viewPager.setAdapter(adapter);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        CategoryAdapter adapter = new CategoryAdapter(this, getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
 
-         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-         tabLayout.setupWithViewPager(viewPager);
-     }
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+}
 

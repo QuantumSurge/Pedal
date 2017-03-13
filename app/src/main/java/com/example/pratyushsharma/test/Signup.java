@@ -31,6 +31,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+
 import static com.example.pratyushsharma.test.R.id.confirmpassword_signup;
 import static com.example.pratyushsharma.test.R.id.mobile_signup;
 
@@ -44,13 +45,12 @@ public class Signup extends AppCompatActivity {
     private Button buttonsignup;
     private ProgressDialog progress;
     private FirebaseAuth firebaseAuth;
-     private TextView mobile_signup;
+    private TextView mobile_signup;
     private DatabaseReference databasereference;
     private ImageView chooseimage;
-    private  static final int PICK_IMAGE_REQUEST =2;
+    private static final int PICK_IMAGE_REQUEST = 2;
     private Uri filePath;
     private StorageReference uploadimg;
-
 
 
     @Override
@@ -60,10 +60,10 @@ public class Signup extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         comfirmpassword_signup = (TextView) findViewById(confirmpassword_signup);
-        name_signup = (TextView)  findViewById(R.id.name_signup);
+        name_signup = (TextView) findViewById(R.id.name_signup);
         email_signup = (TextView) findViewById(R.id.email_signup);
         password_signup = (TextView) findViewById(R.id.password_signup);
-        mobile_signup  = (EditText) findViewById(R.id.mobile_signup);
+        mobile_signup = (EditText) findViewById(R.id.mobile_signup);
         buttonsignup = (Button) findViewById(R.id.signup_btn);
 
         progress = new ProgressDialog(this);
@@ -75,14 +75,13 @@ public class Signup extends AppCompatActivity {
         uploadimg = FirebaseStorage.getInstance().getReference();
 
 
-
         chooseimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent();
                 i.setType("image/*");
                 i.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(i,"Select an image"),PICK_IMAGE_REQUEST);
+                startActivityForResult(Intent.createChooser(i, "Select an image"), PICK_IMAGE_REQUEST);
             }
         });
 
@@ -96,16 +95,15 @@ public class Signup extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
 
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 chooseimage.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -114,7 +112,7 @@ public class Signup extends AppCompatActivity {
     }
 
 
-    private void registerUser(){
+    private void registerUser() {
 
         final String email = email_signup.getText().toString().trim();
 
@@ -124,28 +122,28 @@ public class Signup extends AppCompatActivity {
 
         final String mobile = mobile_signup.getText().toString().trim();
 
-        final String confirmpassword = comfirmpassword_signup.getText().toString().trim()
+        final String confirmpassword = comfirmpassword_signup.getText().toString().trim();
 
         databasereference = FirebaseDatabase.getInstance().getReference();
 
-        if(TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Please enter a valid email",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Please enter a valid password",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Please enter a valid password", Toast.LENGTH_SHORT).show();
             return;
         }
 
         int length = password.length();
 
-        if(length < 6 && length>0){
-            Toast.makeText(this,"This password is too short",Toast.LENGTH_SHORT).show();
+        if (length < 6 && length > 0) {
+            Toast.makeText(this, "This password is too short", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(!password.equals(confirmpassword)){
-            Toast.makeText(this,"Passwords don't match. Try again.",Toast.LENGTH_SHORT).show();
+        if (!password.equals(confirmpassword)) {
+            Toast.makeText(this, "Passwords don't match. Try again.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -153,71 +151,68 @@ public class Signup extends AppCompatActivity {
         progress.setMessage("You are registering...");
         progress.show();
 
-        firebaseAuth.createUserWithEmailAndPassword(email,password)
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(Signup.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progress.dismiss();
-                        if(task.isSuccessful()){
-                            firebaseAuth.signInWithEmailAndPassword(email,password);
+                        if (task.isSuccessful()) {
+                            firebaseAuth.signInWithEmailAndPassword(email, password);
 
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                            if(filePath!=null) {		
- -                                final StorageReference profileRef = uploadimg.child(user.getUid() + "/profile.jpg");
+                            if (filePath != null) {
+                                final StorageReference profileRef = uploadimg.child(user.getUid() + "/profile.jpg");
 
 
-                            profileRef.putFile(filePath)		 +                            final StorageReference profileRef = uploadimg.child(user.getUid()+"/profile.jpg");
- -                                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {		
- -                                            @Override		
- -                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                profileRef.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            }		 +                            profileRef.putFile(filePath)
- -                                        })		 +                                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
- -                                        .addOnFailureListener(new OnFailureListener() {		 +                                        @Override
- -                                            @Override		 +                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
- -                                            public void onFailure(@NonNull Exception exception) {		
- -                                                progress.dismiss();		
- -                                                Toast.makeText(Signup.this, "Please Upload the image again", Toast.LENGTH_SHORT).show();		
- -                                            }		
- -                                        });		
- -                            }
-                               sendVerificationEmail();
-
+                                    }
+                                })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception exception) {
+                                                progress.dismiss();
+                                                Toast.makeText(Signup.this, "Please Upload the image again", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+                            sendVerificationEmail();
 
 
-                             Userinfo userinfo = new Userinfo(mobile,name);
+                            Userinfo userinfo = new Userinfo(mobile, name);
 
                             databasereference.child(user.getUid()).setValue(userinfo);
-                            }		
- -                        else {		
- -                            Toast.makeText(Signup.this,"Please Try Again",Toast.LENGTH_SHORT).show();		
- -                        }		
- -		
- -                    }		
- -                });
- }
-                		
- -    private void sendVerificationEmail() {		
- -        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();		
-  		  
- -        user.sendEmailVerification()		
- -                .addOnCompleteListener(new OnCompleteListener<Void>() {		
- -                    @Override		
- -                    public void onComplete(@NonNull Task<Void> task) {		
- -                        if (task.isSuccessful()) {		
- -                            Toast.makeText(Signup.this,"Registered Successfully. Please verify your e-mail.",Toast.LENGTH_SHORT).show();		
- -                            // after email is sent just logout the user and finish this activity		
- -                            FirebaseAuth.getInstance().signOut();
+                        } else {
+                            Toast.makeText(Signup.this, "Please Try Again", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+    }
+
+    private void sendVerificationEmail() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+
+
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Signup.this, "Registered Successfully. Please verify your e-mail.", Toast.LENGTH_SHORT).show();
+                            // after email is sent just logout the user and finish this activity
+                            FirebaseAuth.getInstance().signOut();
 
 
                             finish();
                             Intent i = new Intent(Signup.this, Login.class);
                             startActivity(i);
-                            }		
- -                        else		
- -                        {		
- -                            Toast.makeText(Signup.this,"There was an error. Please try again.",Toast.LENGTH_SHORT).show();
-                            Toast.makeText(Signup.this,"Registered",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(Signup.this, "There was an error. Please try again.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Signup.this, "Registered", Toast.LENGTH_SHORT).show();
                             Signup.this.recreate();
                         }
 
@@ -225,9 +220,5 @@ public class Signup extends AppCompatActivity {
                 });
 
 
-
-
     }
-
-
-
+}
