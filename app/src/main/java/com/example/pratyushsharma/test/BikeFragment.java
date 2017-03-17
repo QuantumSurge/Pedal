@@ -39,7 +39,7 @@ public class BikeFragment extends Fragment {
         BikeAdapter<Bike> bikeAdapter = new BikeAdapter(getActivity(), bikeList);
         ListView listView = (ListView) rootView.findViewById(R.id.list_view);
         listView.setAdapter(bikeAdapter);
-        final Intent basic = new Intent(getContext(), MainActivity.class);
+        final Intent basic = new Intent(getContext(), Login.class);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

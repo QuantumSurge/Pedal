@@ -47,6 +47,9 @@
             <id>Android &gt; Lint &gt; Correctness &gt; Messages</id>
           </State>
           <State>
+            <id>Android &gt; Lint &gt; Internationalization &gt; Bidirectional Text</id>
+          </State>
+          <State>
             <id>Android &gt; Lint &gt; Performance</id>
           </State>
           <State>
@@ -120,6 +123,9 @@
           </State>
           <State>
             <id>GeneralJava</id>
+          </State>
+          <State>
+            <id>Google Cloud Endpoints</id>
           </State>
           <State>
             <id>Groovy</id>
@@ -221,6 +227,11 @@
             <id>toString() issuesJava</id>
           </State>
         </expanded-state>
+        <selected-state>
+          <State>
+            <id>Android</id>
+          </State>
+        </selected-state>
       </profile-state>
     </entry>
   </component>

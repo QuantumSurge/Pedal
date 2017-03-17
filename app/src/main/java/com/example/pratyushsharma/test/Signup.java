@@ -4,17 +4,16 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.telephony.PhoneNumberUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,12 +32,10 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 
 import static com.example.pratyushsharma.test.R.id.confirmpassword_signup;
-import static com.example.pratyushsharma.test.R.id.mobile_signup;
 
 public class Signup extends AppCompatActivity {
 
     private TextView name_signup;
-    private TextView room_signup;
     private TextView comfirmpassword_signup;
     private TextView email_signup;
     private TextView password_signup;
