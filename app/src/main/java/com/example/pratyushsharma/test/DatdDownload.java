@@ -1,4 +1,3 @@
-/*
 package com.example.pratyushsharma.test;
 
 import android.net.Uri;
@@ -19,6 +18,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+/**
+ * Created by dhruv on 12/3/17.
 
 public class DatdDownload {package com.example.pratyushsharma.test;
 
@@ -118,6 +119,4 @@ public class DatdDownload {package com.example.pratyushsharma.test;
     }
 
 }
-
-
 */

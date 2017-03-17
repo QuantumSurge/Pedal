@@ -145,13 +145,13 @@ public class Login extends AppCompatActivity {
          {		
              Toast.makeText(Login.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
 
-             saveInfo();
+
  		
              finish();		
              Intent i = new Intent(Login.this, Mainpage.class);		
              i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);		
-             startActivity(i);		
- 		
+             startActivity(i);
+             saveInfo();
          }		
          else		
          {		
