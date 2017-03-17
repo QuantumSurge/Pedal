@@ -1,7 +1,9 @@
 package com.example.pratyushsharma.test;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ public class Login extends AppCompatActivity {
     private Button login;
     private FirebaseAuth firebaseauth;
     private ProgressDialog progress;
+    private Button register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +39,63 @@ public class Login extends AppCompatActivity {
         loginpassword = (TextView) findViewById(R.id.password_login);
 
         login = (Button) findViewById(R.id.login_btn);
+        register = (Button) findViewById(R.id.register_btn);
 
         progress = new ProgressDialog(this);
 
         firebaseauth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseauth.getCurrentUser();
+
+        if(user == null){
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    login_to_profile();
+                }
+            });
+
+            register.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(Login.this,Signup.class));
+                }
+            });
+        }
+        else{
+            SharedPreferences sharedpref = getSharedPreferences("userlogin", Context.MODE_PRIVATE);
+
+            final String email = sharedpref.getString("email","");
+            final String password = sharedpref.getString("password","");
+
+            loginemail.setText(email);
+            loginpassword.setText(password);
+
+            progress.setMessage("Logging in...");
+            progress.show();
 
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                login_to_profile();
-            }
-        });
+            firebaseauth.signInWithEmailAndPassword(email,password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                progress.dismiss();
 
+                                finish();
+                                Intent i = new Intent(Login.this, Mainpage.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(i);
+
+                            }
+                            else{
+                                progress.dismiss();
+                                Toast.makeText(Login.this,"Please Try Again",Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    });
+
+        }
 
     }
 
@@ -90,12 +137,15 @@ public class Login extends AppCompatActivity {
         });
 
     }
+
     private void checkIfEmailVerified() {		
          FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();		
  		
          if (user.isEmailVerified())		
          {		
-             Toast.makeText(Login.this, "Successfully logged in", Toast.LENGTH_SHORT).show();		
+             Toast.makeText(Login.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+
+             saveInfo();
  		
              finish();		
              Intent i = new Intent(Login.this, Mainpage.class);		
@@ -110,5 +160,14 @@ public class Login extends AppCompatActivity {
  		
          }		
      }
+
+    private void saveInfo(){
+         SharedPreferences sharedpref = getSharedPreferences("userlogin", Context.MODE_PRIVATE);
+         SharedPreferences.Editor editor = sharedpref.edit();
+
+         editor.putString("email",loginemail.getText().toString().trim());
+         editor.putString("password",loginpassword.getText().toString().trim());
+         editor.apply();
+    }
 
 }
