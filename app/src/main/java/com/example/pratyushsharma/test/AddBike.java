@@ -33,6 +33,9 @@ import java.io.IOException;
 
 
 public class AddBike extends AppCompatActivity {
+    private static final int PICK_IMAGE_REQUEST = 4;
+    Spinner addressSpinner;
+    ArrayAdapter<CharSequence> adapter;
     private TextView name;
     private TextView room;
     private Spinner hostel;
@@ -42,14 +45,10 @@ public class AddBike extends AppCompatActivity {
     private DatabaseReference databasereference;
     private FirebaseAuth firebaseAuth;
     private ImageView bikeimg;
-    private static final int PICK_IMAGE_REQUEST = 4;
     private Uri filePath;
     private StorageReference uploadimg;
     private ProgressDialog progress;
     private Button upload;
-
-    Spinner addressSpinner;
-    ArrayAdapter<CharSequence> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +82,7 @@ public class AddBike extends AppCompatActivity {
 
 
         upload.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
@@ -143,12 +143,12 @@ public class AddBike extends AppCompatActivity {
         addressSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(),parent.getItemAtPosition(position)+" selected",Toast.LENGTH_LONG);
+                Toast.makeText(getBaseContext(),parent.getItemAtPosition(position)+" selected",Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(getBaseContext(),"Please select your hostel",Toast.LENGTH_LONG);
+                Toast.makeText(getBaseContext(),"Please select your hostel",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -166,6 +166,7 @@ public class AddBike extends AppCompatActivity {
         weeklyPicker.setMaxValue(30);
         weeklyPicker.setMinValue(0);
         weeklyPicker.setWrapSelectorWheel(true);
+
 
 
     }

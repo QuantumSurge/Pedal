@@ -1,6 +1,7 @@
 package com.example.pratyushsharma.test;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.sax.RootElement;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -24,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
 
 /**
  * Created by Vikramaditya Patil on 12-03-2017.
@@ -86,7 +89,6 @@ public class BikeFragment extends Fragment {
 
             }
         });
-
         return rootView;
     }
 }

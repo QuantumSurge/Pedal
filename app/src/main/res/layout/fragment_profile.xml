@@ -1,16 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.pratyushsharma.test.ProfileFragment">
 <ImageView
+    android:id="@+id/profile_pic"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_marginTop="8dp"
     android:layout_weight="1"
-    android:scaleType="centerCrop"
-    android:id="@+id/profile_pic"/>
+    android:contentDescription="Profile Picture"
+    android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/user_name"
@@ -18,18 +20,19 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="8dp"
-        android:text="Default User"
+        android:text="@string/user_name"
         android:textSize="24sp" />
-    <!--<TextView
+    <TextView
         android:id="@+id/user_address"
-        android:textSize="24sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />-->
-    <Button
-        android:id="@+id/add_bike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="add bike"/>
+        android:text="@string/user_address"
+        android:textSize="24sp" />
+    <!--<ListView
+        android:id="@+id/user_bike_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+    </ListView>-->
 </LinearLayout>
