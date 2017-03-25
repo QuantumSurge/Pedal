@@ -26,9 +26,6 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ProfileFragment extends Fragment implements View.OnClickListener {
     private ImageView profile_pic;
     private DatabaseReference mDatabaseReference;
