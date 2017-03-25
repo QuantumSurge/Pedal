@@ -160,7 +160,6 @@ public class Login extends AppCompatActivity {
  		
          }		
      }
-
     private void saveInfo(){
          SharedPreferences sharedpref = getSharedPreferences("userlogin", Context.MODE_PRIVATE);
          SharedPreferences.Editor editor = sharedpref.edit();

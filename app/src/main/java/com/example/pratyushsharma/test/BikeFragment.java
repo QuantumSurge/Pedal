@@ -34,7 +34,6 @@ import java.util.Iterator;
 
 public class BikeFragment extends Fragment {
 
-    private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
 
