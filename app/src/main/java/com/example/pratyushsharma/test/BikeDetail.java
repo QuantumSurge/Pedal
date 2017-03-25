@@ -44,6 +44,7 @@ public class BikeDetail extends AppCompatActivity {
         TextView bikeAdressView = (TextView) findViewById(R.id.bikeAddress);
         bikeAdressView.setText(bikeAddress);
 
+
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
