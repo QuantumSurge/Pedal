@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:hint="Name of the bike"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:id="@+id/bike_name"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -39,7 +40,8 @@
             android:layout_margin="8dp"
             android:hint="Room No"
             android:inputType="number"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:id="@+id/room"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -103,6 +105,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/add_bike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

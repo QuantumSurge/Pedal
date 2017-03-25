@@ -55,7 +55,7 @@ public class BikeFragment extends Fragment {
 
 
 
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+        /*mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> items = dataSnapshot.getChildren().iterator();
@@ -85,7 +85,7 @@ public class BikeFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
         return rootView;
     }

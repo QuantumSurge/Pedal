@@ -1,20 +1,52 @@
 package com.example.pratyushsharma.test;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 
 
 public class AddBike extends AppCompatActivity {
+    private TextView name;
+    private TextView room;
+    private Spinner hostel;
+    private NumberPicker hourly;
+    private NumberPicker daily;
+    private NumberPicker weekly;
+    private DatabaseReference databasereference;
+    private FirebaseAuth firebaseAuth;
+    private ImageView bikeimg;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private Uri filePath;
+    private StorageReference uploadimg;
+    private ProgressDialog progress;
+    private Button addbike;
 
     Spinner addressSpinner;
     ArrayAdapter<CharSequence> adapter;
@@ -23,6 +55,80 @@ public class AddBike extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bike);
+
+        name = (TextView) findViewById(R.id.bike_name);
+        room = (TextView) findViewById(R.id.room);
+        hostel = (Spinner) findViewById(R.id.address_spinner);
+        hourly = (NumberPicker) findViewById(R.id.hourlyPicker);
+        daily = (NumberPicker) findViewById(R.id.dailyPicker);
+        weekly = (NumberPicker) findViewById(R.id.weeklyPicker);
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseAuth = FirebaseAuth.getInstance();
+        progress = new ProgressDialog(this);
+        addbike = (Button) findViewById(R.id.add_bike);
+
+        addbike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String mBikename = name.getText().toString();
+                //String mhostel = hostel.getSelectedItem().toString();
+                //String mroom= room.getText().toString();
+                String mBikeAddress = "H-13 3435";
+                int mHourly = hourly.getValue();
+                int mDaily = daily.getValue();
+                int mWeekly= weekly.getValue();
+                String mUID = user.getUid();
+                String mBoolean = "true";
+                Price Price = new Price(mHourly,mDaily,mWeekly);
+
+                Bike bike =new Bike(mBikename,mBikeAddress,mUID,mBoolean,Price);
+                databasereference = FirebaseDatabase.getInstance().getReference();
+                databasereference.child("Cycle").child(user.getUid()).setValue(bike);
+
+
+               bikeimg = (ImageView) findViewById(R.id.bike_Img);
+
+                uploadimg = FirebaseStorage.getInstance().getReference().child("Cycle");
+
+
+                bikeimg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent();
+                        i.setType("image/*");
+                        i.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(i, "Select an image"), PICK_IMAGE_REQUEST);
+                    }
+                });
+
+                progress.setMessage("Uploading...");
+                progress.show();
+
+                if (filePath != null) {
+                    final StorageReference profileRef = uploadimg.child(user.getUid());
+
+
+                    profileRef.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progress.dismiss();
+                            Toast.makeText(AddBike.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    progress.dismiss();
+                                    Toast.makeText(AddBike.this, "Please Upload the image again", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+                progress.dismiss();
+                Toast.makeText(AddBike.this, "Please Upload an image.", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
 
         DisplayMetrics dm = new DisplayMetrics();
@@ -72,5 +178,22 @@ public class AddBike extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                bikeimg.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 }

@@ -62,9 +62,6 @@ public class Mainpage extends AppCompatActivity {
 
 
 
-
-
-
         mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
         uid = user.getUid();
