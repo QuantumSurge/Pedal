@@ -5,18 +5,27 @@ package com.example.pratyushsharma.test;
  */
 
 public class Bike {
-    private String mBikename,mBikeAddress,mUID;
+    private String mBikename,mBikeAddress,mUID,mBoolean;
     private Price mPrice;
 
 
-    public Bike(String bikename, String bikeAddress, String uid, Price price){
+    public Bike(String bikename, String bikeAddress, String uid,String Boolean,Price price){
         mBikeAddress = bikeAddress;
         mBikename = bikename;
         mUID = uid;
+        mBoolean = Boolean;
         mPrice = price;
     }
     public Bike(){
 
+    }
+
+    public String getBoolean() {
+        return mBoolean;
+    }
+
+    public void setBoolean(String aBoolean) {
+        mBoolean = aBoolean;
     }
 
     public String getBikeAddress(){
