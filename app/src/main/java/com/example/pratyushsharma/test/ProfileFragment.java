@@ -23,6 +23,25 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
 
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mFirebaseAuth.getCurrentUser();
+        uid = user.getUid();
+
+        mFirebaseDatabase=FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference();
+        mstorage= FirebaseStorage.getInstance().getReference();
+
+
+        StorageReference storageRef = mstorage.child(uid).child("/profile.jpg");
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.with(profile_pic.getContext()).load(uri).fit().into(profile_pic);
+            }
+        });
+
+        return myView;
+
     }
 
 }
