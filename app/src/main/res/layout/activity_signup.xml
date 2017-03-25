@@ -20,7 +20,6 @@
                   android:orientation="vertical"
                   android:weightSum="1">
 
-
         <EditText
             android:padding="10dp"
             android:hint="Enter name"
