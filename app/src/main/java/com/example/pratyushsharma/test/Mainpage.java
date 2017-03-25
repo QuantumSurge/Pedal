@@ -63,15 +63,6 @@ public class Mainpage extends AppCompatActivity {
         setContentView(R.layout.activity_mainpage);
 
 
-
-
-        if (!calledAlready)
-        {
-            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-            calledAlready = true;
-        }*/
-
-
         mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
         uid = user.getUid();
