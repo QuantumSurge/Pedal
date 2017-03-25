@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -26,9 +27,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import com.google.firebase.database.ValueEventListener;
+
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
 
 
 public class ProfileFragment extends Fragment{
@@ -46,7 +51,6 @@ public class ProfileFragment extends Fragment{
         View myView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         profile_pic = (ImageView) myView.findViewById(R.id.profile_pic);
-
         mFirebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mFirebaseAuth.getCurrentUser();
         uid = user.getUid();
