@@ -62,7 +62,7 @@ public class BikeFragment extends Fragment {
                 bikeList.clear();
                 while(items.hasNext()){
                     DataSnapshot item = items.next();
-                    String address,name,uid;
+                    String address,name,uid,mboolean;
                     int hourly , daily , weekly;
                     address = item.child("mBikeAddress").getValue().toString();
                     name = item.child("mBikename").getValue().toString();
@@ -70,9 +70,12 @@ public class BikeFragment extends Fragment {
                     hourly = Integer.parseInt(item.child("mPrice").child("mHourly").getValue().toString());
                     daily = Integer.parseInt(item.child("mPrice").child("mDaily").getValue().toString());
                     weekly =Integer.parseInt(item.child("mPrice").child("mWeekly").getValue().toString());
+                    mboolean = item.child("mBoolean").getValue().toString();
                     Price rate = new Price(hourly,daily,weekly);
-                    Bike value = new Bike(name,address,uid,rate);
-                    bikeList.add(value);
+                    Bike value = new Bike(name,address,uid,mboolean,rate);
+                    if(mboolean.equals("true")){
+                        bikeList.add(value);
+                    }
                 }
 
                     bikeAdapter.notifyDataSetChanged();

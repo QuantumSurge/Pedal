@@ -10,7 +10,7 @@
     android:layout_marginTop="8dp"
     android:layout_weight="1"
     android:scaleType="centerCrop"
-    android:src="@drawable/icon"/>
+    android:id="@+id/profile_pic"/>
 
     <TextView
         android:id="@+id/user_name"
