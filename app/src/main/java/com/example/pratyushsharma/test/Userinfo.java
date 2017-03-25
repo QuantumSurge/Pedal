@@ -28,6 +28,5 @@ public class Userinfo {
      }
     public void setMobile(String mobile) {
          this.mobile = mobile;
-         this.username = username;
       }
 }

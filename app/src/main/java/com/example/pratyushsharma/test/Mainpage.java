@@ -39,12 +39,12 @@ public class Mainpage extends AppCompatActivity {
         setContentView(R.layout.activity_mainpage);
 
         logout =(Button)findViewById(R.id.logout);
-
+/*
         if (!calledAlready)
         {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
             calledAlready = true;
-        }
+        }*/
 
 
         mFirebaseAuth = FirebaseAuth.getInstance();
