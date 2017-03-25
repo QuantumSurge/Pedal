@@ -51,8 +51,17 @@ public class BikeFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bike cureentbike = bikeList.get(position);
-                String uid = cureentbike.getUID();
+
+                Bike currentBike = bikeList.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("uId",currentBike.getUID());
+                bundle.putString("bikeName",currentBike.getBikename());
+                bundle.putString("bikeAddress",currentBike.getBikeAddress());
+                bundle.putInt("priceHourly",currentBike.getPrice().getHourly());
+                bundle.putInt("priceDaily",currentBike.getPrice().getDaily());
+                bundle.putInt("priceWeekly",currentBike.getPrice().getWeekly());
+                basic.putExtras(bundle);
+
                 startActivity(basic);
 
             }
