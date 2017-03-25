@@ -38,12 +38,12 @@ public class AddBike extends AppCompatActivity {
         addressSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(AddBike.this,parent.getItemAtPosition(position)+" selected",Toast.LENGTH_LONG);
+                Toast.makeText(getBaseContext(),parent.getItemAtPosition(position)+" selected",Toast.LENGTH_LONG);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(AddBike.this,"Please select your hostel",Toast.LENGTH_LONG);
+                Toast.makeText(getBaseContext(),"Please select your hostel",Toast.LENGTH_LONG);
             }
         });
 
@@ -67,7 +67,7 @@ public class AddBike extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Import image code goes here
-                Toast.makeText(AddBike.this,"upload image",Toast.LENGTH_LONG);
+                Toast.makeText(getBaseContext(),"upload image",Toast.LENGTH_LONG);
             }
         });
 
