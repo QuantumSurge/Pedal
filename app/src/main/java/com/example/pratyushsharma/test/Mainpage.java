@@ -59,14 +59,9 @@ public class Mainpage extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.add_bike:
-                if(mDatabaseReference.child("Cycle").child(uid) == null){
                 Intent addBikeIntent = new Intent(getBaseContext(),AddBike.class);
                 startActivity(addBikeIntent);
                 return true;
-                }
-                else{
-                    Toast.makeText(getBaseContext(),"You can only lend a cycle.",Toast.LENGTH_LONG).show();
-                }
             default:
                 return super.onOptionsItemSelected(item);
         }
