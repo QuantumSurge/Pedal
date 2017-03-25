@@ -49,7 +49,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         addBike.setOnClickListener(this);
 
         profile_pic = (ImageView) myView.findViewById(R.id.profile_pic);
-
         mFirebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mFirebaseAuth.getCurrentUser();
         uid = user.getUid();
@@ -68,6 +67,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         });
 
         return myView;
+
     }
 
 }
