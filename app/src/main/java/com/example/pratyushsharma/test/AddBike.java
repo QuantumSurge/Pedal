@@ -46,7 +46,7 @@ public class AddBike extends AppCompatActivity {
     private Uri filePath;
     private StorageReference uploadimg;
     private ProgressDialog progress;
-    private Button addbike;
+    private Button upload;
 
     Spinner addressSpinner;
     ArrayAdapter<CharSequence> adapter;
@@ -65,7 +65,7 @@ public class AddBike extends AppCompatActivity {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         firebaseAuth = FirebaseAuth.getInstance();
         progress = new ProgressDialog(this);
-        addbike = (Button) findViewById(R.id.addbike);
+        upload = (Button) findViewById(R.id.upload);
         bikeimg = (ImageView) findViewById(R.id.bike_Img);
         uploadimg = FirebaseStorage.getInstance().getReference().child("Cycle");
 
@@ -80,7 +80,7 @@ public class AddBike extends AppCompatActivity {
             }
         });
 
-        addbike.setOnClickListener(new View.OnClickListener() {
+        upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
