@@ -7,7 +7,7 @@
     android:layout_margin="2dp"
     android:elevation="4dp"
     app:cardBackgroundColor="#E57373"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="2dp">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -17,7 +17,8 @@
         android:id="@+id/bike_Img"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter" />
@@ -30,17 +31,49 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/bike_Add"
+            android:id="@+id/bike_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
             android:layout_marginBottom="8dp" />
 
         <TextView
-            android:id="@+id/bike_Price"
+            android:id="@+id/bike_Add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp" />
+            android:layout_marginTop="8dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/hour_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/cardview_light_background"
+                android:padding="2dp"
+                android:text="1 Rs"
+                android:textColor="@color/cardview_dark_background" />
+            <TextView
+                android:id="@+id/day_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/cardview_light_background"
+                android:padding="2dp"
+                android:text="6 Rs"
+                android:textColor="@color/cardview_dark_background" />
+            <TextView
+                android:id="@+id/week_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/cardview_light_background"
+                android:padding="2dp"
+                android:text="15 Rs"
+                android:textColor="@color/cardview_dark_background" />
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>
 </android.support.v7.widget.CardView>
