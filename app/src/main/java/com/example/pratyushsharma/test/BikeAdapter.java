@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class BikeAdapter<T> extends ArrayAdapter<Bike> {
@@ -30,11 +32,21 @@ public class BikeAdapter<T> extends ArrayAdapter<Bike> {
         // Get the {@link AndroidFlavor} object located at this position in the list
         Bike currentBike =  getItem(position);
 
+
         TextView addTextView = (TextView) listItemView.findViewById(R.id.bike_Add);
         addTextView.setText(currentBike.getBikeAddress());
 
-        TextView priceTextView = (TextView) listItemView.findViewById(R.id.bike_Price);
-        priceTextView.setText(String.valueOf(currentBike.getPrice().getDaily())+"-"+String.valueOf(currentBike.getPrice().getHourly())+"-"+String.valueOf(currentBike.getPrice().getWeekly()));
+        TextView bikeNameTextView = (TextView) listItemView.findViewById(R.id.bike_name);
+        bikeNameTextView.setText(currentBike.getBikename());
+
+        TextView hourPriceView = (TextView) listItemView.findViewById(R.id.hour_price);
+        hourPriceView.setText(String.valueOf(currentBike.getPrice().getHourly()));
+
+        TextView dayPriceView = (TextView) listItemView.findViewById(R.id.day_price);
+        dayPriceView.setText(String.valueOf(currentBike.getPrice().getDaily()));
+
+        TextView weekPriceView = (TextView) listItemView.findViewById(R.id.week_price);
+        weekPriceView.setText(String.valueOf(currentBike.getPrice().getWeekly()));
 
         //ImageView iconView = (ImageView) listItemView.findViewById(R.id.bike_Img);
         //iconView.setImageResource(currentBike.getBikeId());
