@@ -14,7 +14,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Vikramaditya Patil on 12-03-2017.
@@ -22,21 +31,18 @@ import java.util.ArrayList;
 
 public class BikeFragment extends Fragment {
 
+    private FirebaseAuth mFirebaseAuth;
+    private DatabaseReference mDatabaseReference;
+    private FirebaseDatabase mFirebaseDatabase;
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_bike, container, false);
-        ArrayList<Bike> bikeList = new ArrayList<>();
-        bikeList.add(new Bike("15R", "15A401", R.drawable.icon));
-        bikeList.add(new Bike("16R", "15A402", R.drawable.icon));
-        bikeList.add(new Bike("17R", "15A403", R.drawable.icon));
-        bikeList.add(new Bike("18R", "15A404", R.drawable.icon));
-        bikeList.add(new Bike("19R", "15A405", R.drawable.icon));
-        bikeList.add(new Bike("20R", "15A406", R.drawable.icon));
-        bikeList.add(new Bike("15R", "15A407", R.drawable.icon));
-        bikeList.add(new Bike("16R", "15A408", R.drawable.icon));
-        bikeList.add(new Bike("17R", "15A409", R.drawable.icon));
-        bikeList.add(new Bike("18R", "15A410", R.drawable.icon));
+        final ArrayList<Bike> bikeList = new ArrayList<>();
+        mFirebaseDatabase=FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference().child("Cycle");
 
-        BikeAdapter<Bike> bikeAdapter = new BikeAdapter(getActivity(), bikeList);
+
+        final BikeAdapter<Bike> bikeAdapter = new BikeAdapter(getActivity(), bikeList);
         ListView listView = (ListView) rootView.findViewById(R.id.list_view);
         listView.setAdapter(bikeAdapter);
         final Intent basic = new Intent(getContext(), BikeDetail.class);
@@ -46,6 +52,38 @@ public class BikeFragment extends Fragment {
                 startActivity(basic);
             }
         });
+
+
+
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterator<DataSnapshot> items = dataSnapshot.getChildren().iterator();
+                bikeList.clear();
+                while(items.hasNext()){
+                    DataSnapshot item = items.next();
+                    String address,name,uid;
+                    int hourly , daily , weekly;
+                    address = item.child("mBikeAddress").getValue().toString();
+                    name = item.child("mBikename").getValue().toString();
+                    uid = item.child("mUID").getValue().toString();
+                    hourly = Integer.parseInt(item.child("mPrice").child("mHourly").getValue().toString());
+                    daily = Integer.parseInt(item.child("mPrice").child("mDaily").getValue().toString());
+                    weekly =Integer.parseInt(item.child("mPrice").child("mWeekly").getValue().toString());
+                    Price rate = new Price(hourly,daily,weekly);
+                    Bike value = new Bike(name,address,uid,rate);
+                    bikeList.add(value);
+                }
+
+                    bikeAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         return rootView;
     }
 }
