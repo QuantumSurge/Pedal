@@ -33,6 +33,9 @@ import java.io.IOException;
 
 
 public class AddBike extends AppCompatActivity {
+    private static final int PICK_IMAGE_REQUEST = 4;
+    Spinner addressSpinner;
+    ArrayAdapter<CharSequence> adapter;
     private TextView name;
     private TextView room;
     private Spinner hostel;
@@ -42,14 +45,10 @@ public class AddBike extends AppCompatActivity {
     private DatabaseReference databasereference;
     private FirebaseAuth firebaseAuth;
     private ImageView bikeimg;
-    private static final int PICK_IMAGE_REQUEST = 4;
     private Uri filePath;
     private StorageReference uploadimg;
     private ProgressDialog progress;
     private Button addbike;
-
-    Spinner addressSpinner;
-    ArrayAdapter<CharSequence> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,16 +68,6 @@ public class AddBike extends AppCompatActivity {
         bikeimg = (ImageView) findViewById(R.id.bike_Img);
         uploadimg = FirebaseStorage.getInstance().getReference().child("Cycle");
 
-
-        bikeimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent();
-                i.setType("image/*");
-                i.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(i, "Select an image"), PICK_IMAGE_REQUEST);
-            }
-        });
 
         addbike.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,12 +129,12 @@ public class AddBike extends AppCompatActivity {
         addressSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(),parent.getItemAtPosition(position)+" selected",Toast.LENGTH_LONG);
+                Toast.makeText(getBaseContext(),parent.getItemAtPosition(position)+" selected",Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(getBaseContext(),"Please select your hostel",Toast.LENGTH_LONG);
+                Toast.makeText(getBaseContext(),"Please select your hostel",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -168,8 +157,11 @@ public class AddBike extends AppCompatActivity {
         bikeImage.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //Import image code goes here
-                Toast.makeText(getBaseContext(),"upload image",Toast.LENGTH_LONG);
+                Intent i = new Intent();
+                i.setType("image/*");
+                i.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(i, "Select an image"), PICK_IMAGE_REQUEST);
+                Toast.makeText(getBaseContext(),"upload image",Toast.LENGTH_LONG).show();
             }
         });
 

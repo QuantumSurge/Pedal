@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public class BikeAdapter<T> extends ArrayAdapter<Bike> {
 
-    public BikeAdapter(Activity context, ArrayList<Bike> pbikeList) {
-        super(context, 0, pbikeList);
+    public BikeAdapter(Activity context, ArrayList<Bike> pBikeList) {
+        super(context, 0, pBikeList);
     }
 
     @NonNull
@@ -28,7 +28,7 @@ public class BikeAdapter<T> extends ArrayAdapter<Bike> {
         }
 
         // Get the {@link AndroidFlavor} object located at this position in the list
-        Bike currentBike = getItem(position);
+        Bike currentBike =  getItem(position);
 
         TextView addTextView = (TextView) listItemView.findViewById(R.id.bike_Add);
         addTextView.setText(currentBike.getBikeAddress());

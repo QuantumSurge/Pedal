@@ -2,13 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/cardview_dark_background"
     android:fillViewport="true">
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@color/cardview_dark_background"
-
     android:orientation="vertical">
     <ImageView
         android:id="@+id/bike_Img"
@@ -19,12 +19,12 @@
         android:clickable="true"
         android:src="@android:drawable/ic_menu_camera"/>
     <EditText
+        android:id="@+id/bike_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:hint="Name of the bike"
-        android:textSize="24sp"
-        android:id="@+id/bike_name"/>
+        android:hint="@string/bikes_name"
+        android:textSize="24sp"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -35,13 +35,13 @@
 
         </Spinner>
         <EditText
+            android:id="@+id/room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:hint="Room No"
             android:inputType="number"
-            android:textSize="24sp"
-            android:id="@+id/room"/>
+            android:textSize="24sp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,7 +53,6 @@
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:hint="2 Rs"
             android:outlineProvider="bounds"
             android:text="Hourly Price"
             android:textAllCaps="true" />
@@ -63,7 +62,6 @@
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:hint="10 Rs"
             android:outlineProvider="bounds"
             android:text="daily Price"
             android:textAllCaps="true"/>
@@ -73,7 +71,6 @@
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:hint="30Rs"
             android:outlineProvider="bounds"
             android:text="Weekly Price"
             android:textAllCaps="true"/>
@@ -109,6 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
         android:text="Add Bike"/>
 
 </LinearLayout>
