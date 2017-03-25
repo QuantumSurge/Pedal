@@ -42,7 +42,6 @@ public class ProfileFragment extends Fragment  {
         View myView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         profile_pic = (ImageView) myView.findViewById(R.id.profile_pic);
-
         mFirebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mFirebaseAuth.getCurrentUser();
         uid = user.getUid();
@@ -61,6 +60,7 @@ public class ProfileFragment extends Fragment  {
         });
 
         return myView;
+
     }
 
 }
