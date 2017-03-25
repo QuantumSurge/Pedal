@@ -69,16 +69,18 @@ public class AddBike extends AppCompatActivity {
         bikeimg = (ImageView) findViewById(R.id.bike_Img);
         uploadimg = FirebaseStorage.getInstance().getReference().child("Cycle");
 
-
-        bikeimg.setOnClickListener(new View.OnClickListener() {
+        ImageView bikeImage = (ImageView) findViewById(R.id.bike_Img);
+        bikeImage.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent i = new Intent();
                 i.setType("image/*");
                 i.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(i, "Select an image"), PICK_IMAGE_REQUEST);
+                Toast.makeText(getBaseContext(),"upload image",Toast.LENGTH_LONG);
             }
         });
+
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,9 +97,9 @@ public class AddBike extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             String mBikename = name.getText().toString();
-                            //String mhostel = hostel.getSelectedItem().toString();
-                            //String mroom= room.getText().toString();
-                            String mBikeAddress = "H-13 3435";
+                            String mhostel = hostel.getSelectedItem().toString();
+                            String mroom= room.getText().toString();
+                            String mBikeAddress = mhostel + " " + mroom;
                             int mHourly = hourly.getValue();
                             int mDaily = daily.getValue();
                             int mWeekly= weekly.getValue();
@@ -110,18 +112,19 @@ public class AddBike extends AppCompatActivity {
                             databasereference.child("Cycle").child(user.getUid()).setValue(bike);
                             progress.dismiss();
                             Toast.makeText(AddBike.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(AddBike.this,ProfileFragment.class));
                         }
                     })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception exception) {
                                     progress.dismiss();
-                                    Toast.makeText(AddBike.this, "Please Upload the image again", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddBike.this, "Please try uploading the image again", Toast.LENGTH_SHORT).show();
+                                    AddBike.this.recreate();
                                 }
                             });
                 }
                 progress.dismiss();
-                Toast.makeText(AddBike.this, "Please Upload an image.", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -164,14 +167,6 @@ public class AddBike extends AppCompatActivity {
         weeklyPicker.setMinValue(0);
         weeklyPicker.setWrapSelectorWheel(true);
 
-        ImageView bikeImage = (ImageView) findViewById(R.id.bike_Img);
-        bikeImage.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //Import image code goes here
-                Toast.makeText(getBaseContext(),"upload image",Toast.LENGTH_LONG);
-            }
-        });
 
     }
 
