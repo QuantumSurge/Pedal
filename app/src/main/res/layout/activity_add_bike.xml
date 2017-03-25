@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:layout_margin="8dp"
+
     android:orientation="vertical">
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:src="@drawable/icon"/>
     <EditText
@@ -54,33 +59,24 @@
         android:layout_gravity="center_horizontal">
 
 
-        <EditText
-            android:id="@+id/price_hourly"
+        <NumberPicker
+            android:id="@+id/hourlyPicker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:inputType="number"
-            android:outlineProvider="bounds"/>
-        <EditText
-            android:id="@+id/price_daily"
+            android:layout_weight="1"/>
+        <NumberPicker
+            android:id="@+id/dailyPicker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:inputType="number"
-            android:outlineProvider="bounds"/>
-        <EditText
-            android:id="@+id/price_weekly"
+            android:layout_weight="1"/>
+        <NumberPicker
+            android:id="@+id/weeklyPicker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:inputType="number"
-            android:outlineProvider="bounds"/>
+            android:layout_weight="1" />
     </LinearLayout>
     <EditText
         android:layout_width="wrap_content"
@@ -95,3 +91,4 @@
         android:text="click me"/>
 
 </LinearLayout>
+    </ScrollView>
