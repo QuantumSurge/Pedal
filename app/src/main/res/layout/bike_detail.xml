@@ -9,6 +9,14 @@
         android:layout_weight="0.33"
         android:adjustViewBounds="true"
         android:src="@drawable/icon" />
+    <TextView
+        android:id="@+id/bike_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="8dp"
+        android:text="@string/bike_name"
+        android:textSize="24sp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,18 +26,45 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="Hour"
-            android:textSize="24sp" />
+            android:textSize="12sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="Day"
-            android:textSize="24sp" />
+            android:textSize="12sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="Week"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+        <TextView
+            android:id="@+id/mHourlyPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginRight="16dp"
+            android:textSize="24sp" />
+        <TextView
+            android:id="@+id/mDailyPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text=" "
+            android:textSize="24sp" />
+        <TextView
+            android:id="@+id/mWeeklyPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginLeft="16dp"
+            android:text=" "
             android:textSize="24sp" />
     </LinearLayout>
     <LinearLayout
@@ -37,18 +72,11 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal">
         <TextView
-            android:id="@+id/hostel_name"
+            android:id="@+id/bikeAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="H22"
-            android:textSize="24sp" />
-        <TextView
-            android:id="@+id/room_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="2016"
             android:textSize="24sp" />
 
     </LinearLayout>
