@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -76,9 +77,11 @@ public class ProfileFragment extends Fragment{
             public void onClick(View v) {
                 if (readySwitch.isChecked()){
                     //code for ready state
+                    Toast.makeText(getActivity(),"Locked and Loaded",Toast.LENGTH_SHORT).show();
                 }
                 else{
                     //code for non ready state
+                    Toast.makeText(getActivity(),"Offline",Toast.LENGTH_SHORT).show();
                 }
             }
         });
