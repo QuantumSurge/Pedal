@@ -81,16 +81,18 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="8dp"
             android:orientation="vertical">
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="Ready"
-             android:textAllCaps="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bike Status"
+                android:textAllCaps="true"/>
         <Switch
             android:id="@+id/ready_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:checked="true" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

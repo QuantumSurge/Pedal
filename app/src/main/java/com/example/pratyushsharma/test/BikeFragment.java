@@ -51,7 +51,10 @@ public class BikeFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bike cureentbike = bikeList.get(position);
+                String uid = cureentbike.getUID();
                 startActivity(basic);
+
             }
         });
 
@@ -64,17 +67,23 @@ public class BikeFragment extends Fragment {
                 bikeList.clear();
                 while(items.hasNext()){
                     DataSnapshot item = items.next();
+
                     String address,name,uid,mboolean;
                     int hourly , daily , weekly;
+
                     address = item.child("bikeAddress").getValue().toString();
                     name = item.child("bikename").getValue().toString();
                     uid = item.child("uid").getValue().toString();
+
                     hourly = Integer.parseInt(item.child("price").child("hourly").getValue().toString());
                     daily = Integer.parseInt(item.child("price").child("daily").getValue().toString());
                     weekly =Integer.parseInt(item.child("price").child("weekly").getValue().toString());
+
                     mboolean = item.child("boolean").getValue().toString();
+
                     Price rate = new Price(hourly,daily,weekly);
                     Bike value = new Bike(name,address,uid,mboolean,rate);
+
                     if(mboolean.equals("true")){
                         bikeList.add(value);
                     }

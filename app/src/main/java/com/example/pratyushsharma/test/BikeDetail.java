@@ -15,6 +15,8 @@ public class BikeDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bike_detail);
 
+
+
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
