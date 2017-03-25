@@ -24,7 +24,7 @@ public class CategoryAdapter extends FragmentPagerAdapter {
         if (position == 0) {
             return new BikeFragment();
         } else {
-            return new BikeFragment();
+            return new ProfileFragment();
         }
     }
 

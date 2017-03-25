@@ -34,10 +34,10 @@ public class BikeAdapter<T> extends ArrayAdapter<Bike> {
         addTextView.setText(currentBike.getBikeAddress());
 
         TextView priceTextView = (TextView) listItemView.findViewById(R.id.bike_Price);
-        priceTextView.setText(currentBike.getBikePrice());
+        priceTextView.setText(String.valueOf(currentBike.getPrice().getDaily())+"-"+String.valueOf(currentBike.getPrice().getHourly())+"-"+String.valueOf(currentBike.getPrice().getWeekly()));
 
-        ImageView iconView = (ImageView) listItemView.findViewById(R.id.bike_Img);
-        iconView.setImageResource(currentBike.getBikeId());
+        //ImageView iconView = (ImageView) listItemView.findViewById(R.id.bike_Img);
+        //iconView.setImageResource(currentBike.getBikeId());
 
         return listItemView;
     }
