@@ -42,7 +42,7 @@ public class AddBike extends AppCompatActivity {
     private DatabaseReference databasereference;
     private FirebaseAuth firebaseAuth;
     private ImageView bikeimg;
-    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int PICK_IMAGE_REQUEST = 4;
     private Uri filePath;
     private StorageReference uploadimg;
     private ProgressDialog progress;
@@ -65,41 +65,24 @@ public class AddBike extends AppCompatActivity {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         firebaseAuth = FirebaseAuth.getInstance();
         progress = new ProgressDialog(this);
-        addbike = (Button) findViewById(R.id.add_bike);
+        addbike = (Button) findViewById(R.id.addbike);
+        bikeimg = (ImageView) findViewById(R.id.bike_Img);
+        uploadimg = FirebaseStorage.getInstance().getReference().child("Cycle");
+
+
+        bikeimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent();
+                i.setType("image/*");
+                i.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(i, "Select an image"), PICK_IMAGE_REQUEST);
+            }
+        });
 
         addbike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String mBikename = name.getText().toString();
-                //String mhostel = hostel.getSelectedItem().toString();
-                //String mroom= room.getText().toString();
-                String mBikeAddress = "H-13 3435";
-                int mHourly = hourly.getValue();
-                int mDaily = daily.getValue();
-                int mWeekly= weekly.getValue();
-                String mUID = user.getUid();
-                String mBoolean = "true";
-                Price Price = new Price(mHourly,mDaily,mWeekly);
-
-                Bike bike =new Bike(mBikename,mBikeAddress,mUID,mBoolean,Price);
-                databasereference = FirebaseDatabase.getInstance().getReference();
-                databasereference.child("Cycle").child(user.getUid()).setValue(bike);
-
-
-               bikeimg = (ImageView) findViewById(R.id.bike_Img);
-
-                uploadimg = FirebaseStorage.getInstance().getReference().child("Cycle");
-
-
-                bikeimg.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent i = new Intent();
-                        i.setType("image/*");
-                        i.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(Intent.createChooser(i, "Select an image"), PICK_IMAGE_REQUEST);
-                    }
-                });
 
                 progress.setMessage("Uploading...");
                 progress.show();
@@ -111,6 +94,20 @@ public class AddBike extends AppCompatActivity {
                     profileRef.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            String mBikename = name.getText().toString();
+                            //String mhostel = hostel.getSelectedItem().toString();
+                            //String mroom= room.getText().toString();
+                            String mBikeAddress = "H-13 3435";
+                            int mHourly = hourly.getValue();
+                            int mDaily = daily.getValue();
+                            int mWeekly= weekly.getValue();
+                            String mUID = user.getUid();
+                            String mBoolean = "true";
+                            Price Price = new Price(mHourly,mDaily,mWeekly);
+
+                            Bike bike =new Bike(mBikename,mBikeAddress,mUID,mBoolean,Price);
+                            databasereference = FirebaseDatabase.getInstance().getReference();
+                            databasereference.child("Cycle").child(user.getUid()).setValue(bike);
                             progress.dismiss();
                             Toast.makeText(AddBike.this, "Uploaded", Toast.LENGTH_SHORT).show();
                         }
