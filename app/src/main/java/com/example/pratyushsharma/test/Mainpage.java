@@ -8,8 +8,12 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,14 +27,34 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Mainpage extends AppCompatActivity {
 
+    static Boolean calledAlready = false;
+    public String userName;
     private FirebaseAuth mFirebaseAuth;
-
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
     private String uid;
-    static Boolean calledAlready = false;
-    private Button logout;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_mainpage, menu);
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        FirebaseAuth.getInstance().signOut();
+        SharedPreferences preferences =getSharedPreferences("userlogin", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();
+        Intent i = new Intent(Mainpage.this,Login.class);
+        startActivity(i);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        finish();
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +62,9 @@ public class Mainpage extends AppCompatActivity {
 
         setContentView(R.layout.activity_mainpage);
 
-        logout =(Button)findViewById(R.id.logout);
-/*
+
+
+
         if (!calledAlready)
         {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
@@ -54,20 +79,7 @@ public class Mainpage extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                SharedPreferences preferences =getSharedPreferences("userlogin", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.clear();
-                editor.apply();
-                Intent i = new Intent(Mainpage.this,Login.class);
-                startActivity(i);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                finish();
-            }
-        });
+
 
 
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -77,8 +89,11 @@ public class Mainpage extends AppCompatActivity {
                 Userinfo userinfo = new Userinfo();
 
                 userinfo.setUsername(dataSnapshot.child(uid).getValue(Userinfo.class).getUsername());
+                userName = userinfo.getUsername();
+                setTitle("Welcome " + userName);
+                TextView textUserName = (TextView) findViewById(R.id.user_name);
+                textUserName.setText(userName);
 
-                setTitle("Welcome " + userinfo.getUsername());
             }
 
             @Override
@@ -87,13 +102,13 @@ public class Mainpage extends AppCompatActivity {
             }
         });
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         CategoryAdapter adapter = new CategoryAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
+
     }
 }
 
