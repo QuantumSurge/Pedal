@@ -27,7 +27,7 @@ import com.squareup.picasso.Picasso;
 
 
 
-public class ProfileFragment extends Fragment implements View.OnClickListener {
+public class ProfileFragment extends Fragment  {
     private ImageView profile_pic;
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
@@ -35,18 +35,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private StorageReference mstorage;
     private FirebaseAuth mFirebaseAuth;
 
-    @Override
-    public void onClick(View v) {
-        Intent addBikeIntent = new Intent(getContext() , AddBike.class);
-        startActivity(addBikeIntent);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container,
                              Bundle savedInstanceState) {
         View myView = inflater.inflate(R.layout.fragment_profile, container, false);
-        Button addBike = (Button) myView.findViewById(R.id.add_bike);
-        addBike.setOnClickListener(this);
 
         profile_pic = (ImageView) myView.findViewById(R.id.profile_pic);
 
