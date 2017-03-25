@@ -26,7 +26,31 @@
     <string name="action_settings">Settings</string>
     <string name="user_name">Sharma</string>
     <string name="section_format">Hello World from section: %1$d</string>
-
+    
+    <!-- add Bike activity-->
+    <string-array name="hostelNames">
+        <item>H1</item>
+        <item>H2</item>
+        <item>H3</item>
+        <item>H4</item>
+        <item>H5</item>
+        <item>H6</item>
+        <item>H7</item>
+        <item>H8</item>
+        <item>H9</item>
+        <item>H10</item>
+        <item>H11</item>
+        <item>H12</item>
+        <item>H13</item>
+        <item>H14</item>
+        <item>H15A</item>
+        <item>H15B</item>
+        <item>H15C</item>
+        <item>H16A</item>
+        <item>H16B</item>
+        <item>H16C</item>
+    </string-array>
+    
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

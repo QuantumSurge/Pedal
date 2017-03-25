@@ -10,9 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -65,11 +62,7 @@ public class Mainpage extends AppCompatActivity {
 
 
 
-        if (!calledAlready)
-        {
-            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-            calledAlready = true;
-        }*/
+
 
 
         mFirebaseAuth = FirebaseAuth.getInstance();

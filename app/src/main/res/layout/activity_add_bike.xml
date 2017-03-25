@@ -10,17 +10,36 @@
 
     android:orientation="vertical">
     <ImageView
+        android:id="@+id/bike_Img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
+        android:layout_margin="8dp"
         android:adjustViewBounds="true"
-        android:src="@drawable/icon"/>
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_camera"/>
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:hint="Name of the bike"
-        android:textSize="32sp" />
+        android:textSize="24sp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Spinner
+            android:id="@+id/address_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+        </Spinner>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="Room No"
+            android:inputType="number"
+            android:textSize="24sp" />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +52,8 @@
             android:gravity="center_horizontal"
             android:hint="2 Rs"
             android:outlineProvider="bounds"
-            android:text="Hourly Price" />
+            android:text="Hourly Price"
+            android:textAllCaps="true" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -42,7 +62,8 @@
             android:gravity="center_horizontal"
             android:hint="10 Rs"
             android:outlineProvider="bounds"
-            android:text="daily Price"/>
+            android:text="daily Price"
+            android:textAllCaps="true"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -51,7 +72,8 @@
             android:gravity="center_horizontal"
             android:hint="30Rs"
             android:outlineProvider="bounds"
-            android:text="Weekly Price"/>
+            android:text="Weekly Price"
+            android:textAllCaps="true"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,17 +100,12 @@
             android:layout_margin="8dp"
             android:layout_weight="1" />
     </LinearLayout>
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="Address"
-        android:textSize="32sp" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="click me"/>
+        android:text="Add Bike"/>
 
 </LinearLayout>
     </ScrollView>
