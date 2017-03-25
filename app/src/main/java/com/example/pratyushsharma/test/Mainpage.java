@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,12 +28,11 @@ import com.google.firebase.database.ValueEventListener;
 public class Mainpage extends AppCompatActivity {
 
     static Boolean calledAlready = false;
+    public String userName;
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
     private String uid;
-    private Button logout;
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,8 +87,11 @@ public class Mainpage extends AppCompatActivity {
                 Userinfo userinfo = new Userinfo();
 
                 userinfo.setUsername(dataSnapshot.child(uid).getValue(Userinfo.class).getUsername());
+                userName = userinfo.getUsername();
+                setTitle("Welcome " + userName);
+                TextView textUserName = (TextView) findViewById(R.id.user_name);
+                textUserName.setText(userName);
 
-                setTitle("Welcome " + userinfo.getUsername());
             }
 
             @Override
@@ -96,7 +100,6 @@ public class Mainpage extends AppCompatActivity {
             }
         });
 
-        /**getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         CategoryAdapter adapter = new CategoryAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(adapter);

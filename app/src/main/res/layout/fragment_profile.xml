@@ -1,14 +1,35 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.pratyushsharma.test.ProfileFragment">
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_marginTop="8dp"
+    android:layout_weight="1"
+    android:scaleType="centerCrop"
+    android:src="@drawable/icon"/>
 
-    <ImageView
-        android:id="@+id/Profile_Image"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitEnd"
-        android:src="@drawable/icon"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="8dp"
+        android:text="Default User"
+        android:textSize="24sp" />
+    <!--<TextView
+        android:id="@+id/user_address"
+        android:textSize="24sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />-->
+    <Button
+        android:id="@+id/add_bike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="add bike"/>
 
-</FrameLayout>
+</LinearLayout>
