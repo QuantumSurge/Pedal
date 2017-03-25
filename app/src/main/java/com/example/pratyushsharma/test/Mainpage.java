@@ -24,7 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Mainpage extends AppCompatActivity {
 
-    static Boolean calledAlready = false;
     public String userName;
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseReference;
