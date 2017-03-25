@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:id="@+id/list_view"
-              android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:id="@+id/list_view"
+    android:layout_height="match_parent">
+    <cardview>
 
     <ImageView
         android:id="@+id/bike_Img"
@@ -11,7 +12,7 @@
         android:layout_weight="1"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:layout_margin="8dp"/>
+        android:layout_margin="8dp" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -25,13 +26,13 @@
             android:layout_margin="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp" />
 
         <TextView
             android:layout_margin="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bike_Price"/>
+            android:id="@+id/bike_Price" />
     </LinearLayout>
-
+    </cardview>
 </LinearLayout>
