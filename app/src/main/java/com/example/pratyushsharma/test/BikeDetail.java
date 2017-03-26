@@ -22,7 +22,7 @@ public class BikeDetail extends AppCompatActivity {
         setContentView(R.layout.bike_detail);
 
         Bundle bundle = getIntent().getExtras();
-        String uId = bundle.getString("uId");
+        String uid = bundle.getString("uid");
         String bikeName = bundle.getString("bikeName");
         String bikeAddress = bundle.getString("bikeAddress");
         int priceHourly = bundle.getInt("priceHourly");
