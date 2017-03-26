@@ -53,8 +53,9 @@ public class BikeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Bike currentBike = bikeList.get(position);
+
                 Bundle bundle = new Bundle();
-                bundle.putString("uId",currentBike.getUID());
+                bundle.putString("uid",currentBike.getUID());
                 bundle.putString("bikeName",currentBike.getBikename());
                 bundle.putString("bikeAddress",currentBike.getBikeAddress());
                 bundle.putInt("priceHourly",currentBike.getPrice().getHourly());

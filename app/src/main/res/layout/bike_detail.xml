@@ -8,7 +8,8 @@
         android:layout_height="0dp"
         android:layout_weight="0.33"
         android:adjustViewBounds="true"
-        android:src="@drawable/icon" />
+        android:src="@drawable/icon"
+        android:id="@+id/bikeimg_rentnow"/>
     <TextView
         android:id="@+id/bike_name"
         android:layout_width="wrap_content"
@@ -84,6 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="@android:drawable/ic_menu_call"/>
+            android:background="@android:drawable/ic_menu_call"
+            android:id="@+id/callbtn"/>
 
 </LinearLayout>
