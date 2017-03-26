@@ -61,6 +61,7 @@ public class ProfileFragment extends Fragment{
     private StorageReference mstorage;
     private FirebaseAuth mFirebaseAuth;
     public Boolean bike;
+    public ImageView bikeImage;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
@@ -102,6 +103,7 @@ public class ProfileFragment extends Fragment{
                     priceDayView = (TextView)myBikeView.findViewById(R.id.m_day_price);
                     priceHourView = (TextView)myBikeView.findViewById(R.id.m_hour_price);
                     priceWeekView = (TextView)myBikeView.findViewById(R.id.m_week_price);
+                    bikeImage = (ImageView)myBikeView.findViewById(R.id.bike_Img);
 
                     mDatabaseReference.child("Cycle").child(uid).addValueEventListener(new ValueEventListener() {
                         @Override
@@ -120,6 +122,7 @@ public class ProfileFragment extends Fragment{
                             priceHourView.setText(String.valueOf(price.getHourly()));
                             priceDayView.setText(String.valueOf(price.getDaily()));
                             priceWeekView.setText(String.valueOf(price.getWeekly()));
+
                         }
 
                         @Override

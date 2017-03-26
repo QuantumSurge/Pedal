@@ -37,7 +37,8 @@ public class BikeFragment extends Fragment {
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
+    {
         View rootView = inflater.inflate(R.layout.activity_bike, container, false);
         final ArrayList<Bike> bikeList = new ArrayList<>();
         mFirebaseDatabase=FirebaseDatabase.getInstance();
@@ -51,6 +52,7 @@ public class BikeFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
 
                 Bike currentBike = bikeList.get(position);
 
