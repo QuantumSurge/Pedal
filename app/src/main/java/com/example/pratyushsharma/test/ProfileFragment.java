@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.ArrayMap;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.Vector;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 
 public class ProfileFragment extends Fragment{
@@ -56,7 +60,7 @@ public class ProfileFragment extends Fragment{
     private String uid;
     private StorageReference mstorage;
     private FirebaseAuth mFirebaseAuth;
-    private Boolean bike = false;
+    public Boolean bike;
 
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container,
@@ -67,6 +71,8 @@ public class ProfileFragment extends Fragment{
         mFirebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mFirebaseAuth.getCurrentUser();
         uid = user.getUid();
+
+        bike = true;
 
         mFirebaseDatabase=FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
@@ -87,6 +93,9 @@ public class ProfileFragment extends Fragment{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     bike = true;
+                    if(bike){
+                        Toast.makeText(getContext(),"bike = true",LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -95,8 +104,9 @@ public class ProfileFragment extends Fragment{
 
             }
         });
-
         if(bike){
+            Toast.makeText(getContext(),"entered if statement",LENGTH_SHORT).show();
+
             LinearLayout linearLayout = (LinearLayout) myView.findViewById(R.id.myBikeCard);
             View myBikeView = inflater.inflate(R.layout.list_item2,container,false);
 
@@ -143,19 +153,18 @@ public class ProfileFragment extends Fragment{
                     if (readySwitch.isChecked()){
                         mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
                         //code for ready state
-                        Toast.makeText(getActivity(),"Online and ready to lend",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Online and ready to lend", LENGTH_SHORT).show();
                     }
                     else{
                         mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
                         //code for non ready state
-                        Toast.makeText(getActivity(),"Offline",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Offline", LENGTH_SHORT).show();
                     }
                 }
             });
-
         }
-
         return myView;
     }
+
 
 }
