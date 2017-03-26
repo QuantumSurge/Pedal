@@ -7,6 +7,7 @@ import android.media.Image;
 import android.media.ImageWriter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Layout;
@@ -55,6 +56,7 @@ public class ProfileFragment extends Fragment{
     private String uid;
     private StorageReference mstorage;
     private FirebaseAuth mFirebaseAuth;
+    private Boolean bike = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container,
@@ -68,6 +70,7 @@ public class ProfileFragment extends Fragment{
 
         mFirebaseDatabase=FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
+
         mstorage= FirebaseStorage.getInstance().getReference();
 
 
@@ -79,32 +82,12 @@ public class ProfileFragment extends Fragment{
             }
         });
 
-        LinearLayout linearLayout = (LinearLayout) myView.findViewById(R.id.myBikeCard);
-        View myBikeView = inflater.inflate(R.layout.list_item2,container,false);
-        bikeNameView = (TextView)myBikeView.findViewById(R.id.m_bike_name);
-        bikeAddressView = (TextView)myBikeView.findViewById(R.id.m_bike_add);
-        priceDayView = (TextView)myBikeView.findViewById(R.id.m_day_price);
-        priceHourView = (TextView)myBikeView.findViewById(R.id.m_hour_price);
-        priceWeekView = (TextView)myBikeView.findViewById(R.id.m_week_price);
-        userAddress =(TextView)myView.findViewById(R.id.user_address);
         mDatabaseReference.child("Cycle").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Bike currentBike = new Bike();
-                currentBike.setBikename(dataSnapshot.getValue(Bike.class).getBikename());
-                bikeName = currentBike.getBikename();
-                currentBike.setBikeAddress(dataSnapshot.getValue(Bike.class).getBikeAddress());
-                bikeAddress = currentBike.getBikeAddress();
-                currentBike.setPrice(dataSnapshot.getValue(Bike.class).getPrice());
-                price = currentBike.getPrice();
-
-                Toast.makeText(getContext(),bikeName,Toast.LENGTH_LONG).show();
-                bikeNameView.setText(bikeName);
-                bikeAddressView.setText(bikeAddress);
-                priceHourView.setText(String.valueOf(price.getHourly()));
-                priceDayView.setText(String.valueOf(price.getDaily()));
-                priceWeekView.setText(String.valueOf(price.getWeekly()));
-                userAddress.setText(bikeAddress);
+                if(dataSnapshot.exists()){
+                    bike = true;
+                }
             }
 
             @Override
@@ -112,27 +95,67 @@ public class ProfileFragment extends Fragment{
 
             }
         });
-        linearLayout.addView(myBikeView);
 
+        if(bike){
+            LinearLayout linearLayout = (LinearLayout) myView.findViewById(R.id.myBikeCard);
+            View myBikeView = inflater.inflate(R.layout.list_item2,container,false);
 
+            bikeNameView = (TextView)myBikeView.findViewById(R.id.m_bike_name);
+            bikeAddressView = (TextView)myBikeView.findViewById(R.id.m_bike_add);
+            priceDayView = (TextView)myBikeView.findViewById(R.id.m_day_price);
+            priceHourView = (TextView)myBikeView.findViewById(R.id.m_hour_price);
+            priceWeekView = (TextView)myBikeView.findViewById(R.id.m_week_price);
+            userAddress =(TextView)myView.findViewById(R.id.user_address);
 
-        //Switch code for ready and non ready state switching
-        final Switch readySwitch = (Switch) myView.findViewById(R.id.ready_switch);
-        readySwitch.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if (readySwitch.isChecked()){
-                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
-                    //code for ready state
-                    Toast.makeText(getActivity(),"Online and ready to lend",Toast.LENGTH_SHORT).show();
+            mDatabaseReference.child("Cycle").child(uid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Bike currentBike = new Bike();
+
+                    currentBike.setBikename(dataSnapshot.getValue(Bike.class).getBikename());
+                    bikeName = currentBike.getBikename();
+                    currentBike.setBikeAddress(dataSnapshot.getValue(Bike.class).getBikeAddress());
+                    bikeAddress = currentBike.getBikeAddress();
+                    currentBike.setPrice(dataSnapshot.getValue(Bike.class).getPrice());
+                    price = currentBike.getPrice();
+
+                    Toast.makeText(getContext(),bikeName,Toast.LENGTH_LONG).show();
+                    bikeNameView.setText(bikeName);
+                    bikeAddressView.setText(bikeAddress);
+                    priceHourView.setText(String.valueOf(price.getHourly()));
+                    priceDayView.setText(String.valueOf(price.getDaily()));
+                    priceWeekView.setText(String.valueOf(price.getWeekly()));
+                    userAddress.setText(bikeAddress);
                 }
-                else{
-                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
-                    //code for non ready state
-                    Toast.makeText(getActivity(),"Offline",Toast.LENGTH_SHORT).show();
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
                 }
-            }
-        });
+            });
+            linearLayout.addView(myBikeView);
+
+
+
+            //Switch code for ready and non ready state switching
+            final Switch readySwitch = (Switch) myView.findViewById(R.id.ready_switch);
+            readySwitch.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    if (readySwitch.isChecked()){
+                        mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
+                        //code for ready state
+                        Toast.makeText(getActivity(),"Online and ready to lend",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
+                        //code for non ready state
+                        Toast.makeText(getActivity(),"Offline",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+        }
 
         return myView;
     }
