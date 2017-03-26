@@ -54,6 +54,7 @@ public class ProfileFragment extends Fragment{
     public TextView priceWeekView;
     public Price price;
     public TextView userAddress;
+    public Boolean bike;
     private ImageView profile_pic;
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
@@ -62,6 +63,7 @@ public class ProfileFragment extends Fragment{
     private FirebaseAuth mFirebaseAuth;
     public Boolean bike;
     public ImageView bikeImage;
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
@@ -88,16 +90,13 @@ public class ProfileFragment extends Fragment{
                 Picasso.with(profile_pic.getContext()).load(uri).fit().into(profile_pic);
             }
         });
-
+        LinearLayout linearLayout = (LinearLayout) myView.findViewById(R.id.myBikeCard);
+        final View myBikeView = inflater.inflate(R.layout.list_item2,container,false);
         mDatabaseReference.child("Cycle").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     bike = true;
-
-                    LinearLayout linearLayout = (LinearLayout) myView.findViewById(R.id.myBikeCard);
-                    View myBikeView = inflater.inflate(R.layout.list_item2,container,false);
-
                     bikeNameView = (TextView)myBikeView.findViewById(R.id.m_bike_name);
                     bikeAddressView = (TextView)myBikeView.findViewById(R.id.m_bike_add);
                     priceDayView = (TextView)myBikeView.findViewById(R.id.m_day_price);
@@ -110,25 +109,28 @@ public class ProfileFragment extends Fragment{
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Bike currentBike = new Bike();
 
-                            currentBike.setBikename(dataSnapshot.getValue(Bike.class).getBikename());
-                            bikeName = currentBike.getBikename();
-                            currentBike.setBikeAddress(dataSnapshot.getValue(Bike.class).getBikeAddress());
-                            bikeAddress = currentBike.getBikeAddress();
-                            currentBike.setPrice(dataSnapshot.getValue(Bike.class).getPrice());
-                            price = currentBike.getPrice();
 
-                            bikeNameView.setText(bikeName);
-                            bikeAddressView.setText(bikeAddress);
-                            priceHourView.setText(String.valueOf(price.getHourly()));
-                            priceDayView.setText(String.valueOf(price.getDaily()));
-                            priceWeekView.setText(String.valueOf(price.getWeekly()));
-                            StorageReference storageRef = mstorage.child("Cycle").child("/"+uid);
-                            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Picasso.with(bikeImage.getContext()).load(uri).fit().into(bikeImage);
-                                }
-                            });
+                            if(myBikeView == null){
+                                currentBike.setBikename(dataSnapshot.getValue(Bike.class).getBikename());
+                                bikeName = currentBike.getBikename();
+                                currentBike.setBikeAddress(dataSnapshot.getValue(Bike.class).getBikeAddress());
+                                bikeAddress = currentBike.getBikeAddress();
+                                currentBike.setPrice(dataSnapshot.getValue(Bike.class).getPrice());
+                                price = currentBike.getPrice();
+                                bikeNameView.setText(bikeName);
+                                bikeAddressView.setText(bikeAddress);
+                                priceHourView.setText(String.valueOf(price.getHourly()));
+                                priceDayView.setText(String.valueOf(price.getDaily()));
+                                priceWeekView.setText(String.valueOf(price.getWeekly()));
+                                StorageReference storageRef = mstorage.child("Cycle").child("/"+uid);
+                                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        Picasso.with(bikeImage.getContext()).load(uri).fit().into(bikeImage);
+                                    }
+                                });
+                        }
+
                         }
 
                         @Override
@@ -136,7 +138,7 @@ public class ProfileFragment extends Fragment{
 
                         }
                     });
-                    linearLayout.addView(myBikeView);
+
 
                     //Switch code for ready and non ready state switching
                     final Switch readySwitch = (Switch) myView.findViewById(R.id.ready_switch);
@@ -169,7 +171,7 @@ public class ProfileFragment extends Fragment{
             }
         });
 
-
+        linearLayout.addView(myBikeView);
         return myView;
     }
 
