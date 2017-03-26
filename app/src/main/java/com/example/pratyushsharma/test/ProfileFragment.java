@@ -20,11 +20,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,13 +40,21 @@ import com.squareup.picasso.Picasso;
 
 
 public class ProfileFragment extends Fragment{
+    public  String bikeName ;
+    public String bikeAddress;
+    public TextView bikeNameView;
+    public TextView bikeAddressView;
+    public TextView priceHourView;
+    public TextView priceDayView;
+    public TextView priceWeekView;
+    public Price price;
+    public TextView userAddress;
     private ImageView profile_pic;
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
     private String uid;
     private StorageReference mstorage;
     private FirebaseAuth mFirebaseAuth;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater,@Nullable ViewGroup container,
@@ -68,11 +79,42 @@ public class ProfileFragment extends Fragment{
             }
         });
 
-        //test user bike
-        //Check whether the user has uploaded a bike or not
         LinearLayout linearLayout = (LinearLayout) myView.findViewById(R.id.myBikeCard);
         View myBikeView = inflater.inflate(R.layout.list_item2,container,false);
+        bikeNameView = (TextView)myBikeView.findViewById(R.id.m_bike_name);
+        bikeAddressView = (TextView)myBikeView.findViewById(R.id.m_bike_add);
+        priceDayView = (TextView)myBikeView.findViewById(R.id.m_day_price);
+        priceHourView = (TextView)myBikeView.findViewById(R.id.m_hour_price);
+        priceWeekView = (TextView)myBikeView.findViewById(R.id.m_week_price);
+        userAddress =(TextView)myView.findViewById(R.id.user_address);
+        mDatabaseReference.child("Cycle").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Bike currentBike = new Bike();
+                currentBike.setBikename(dataSnapshot.getValue(Bike.class).getBikename());
+                bikeName = currentBike.getBikename();
+                currentBike.setBikeAddress(dataSnapshot.getValue(Bike.class).getBikeAddress());
+                bikeAddress = currentBike.getBikeAddress();
+                currentBike.setPrice(dataSnapshot.getValue(Bike.class).getPrice());
+                price = currentBike.getPrice();
+
+                Toast.makeText(getContext(),bikeName,Toast.LENGTH_LONG).show();
+                bikeNameView.setText(bikeName);
+                bikeAddressView.setText(bikeAddress);
+                priceHourView.setText(String.valueOf(price.getHourly()));
+                priceDayView.setText(String.valueOf(price.getDaily()));
+                priceWeekView.setText(String.valueOf(price.getWeekly()));
+                userAddress.setText(bikeAddress);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         linearLayout.addView(myBikeView);
+
+
 
         //Switch code for ready and non ready state switching
         final Switch readySwitch = (Switch) myView.findViewById(R.id.ready_switch);
