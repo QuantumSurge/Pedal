@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,8 +59,48 @@ public class Mainpage extends AppCompatActivity {
                 Toast.makeText(getBaseContext(),"Successfully Logged out",Toast.LENGTH_LONG).show();
                 finish();
                 return true;
-            case R.id.add_bike:
+
+            case R.id.lend_bike:
+                mDatabaseReference.child("Cycle").child(uid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            Toast.makeText(getBaseContext(),"You can only lend one bicycle.",Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Intent addBikeIntent = new Intent(getBaseContext(),AddBike.class);
+                            startActivity(addBikeIntent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                return true;
+
+
+            case R.id.edit_bike:
                 Intent addBikeIntent = new Intent(getBaseContext(),AddBike.class);
+                /*Bundle bundle = new Bundle();
+                TextView addView = (TextView) findViewById(R.id.m_bike_add);
+                String bikeAdd = addView.getText().toString();
+                bundle.putString("Bike Address",bikeAdd);
+                TextView nameView = (TextView) findViewById(R.id.m_bike_name);
+                String bikeName = nameView.getText().toString();
+                bundle.putString("Bike Name",bikeName);
+
+                TextView hourView = (TextView) findViewById(R.id.hour_price);
+                String hourPrice = hourView.getText().toString();
+                bundle.putString("Hour Price",hourPrice);
+                TextView dayView = (TextView) findViewById(R.id.day_price);
+                String dayPrice = dayView.getText().toString();
+                bundle.putString("Day Price",dayPrice);
+                TextView weekView = (TextView) findViewById(R.id.week_price);
+                String weekPrice = weekView.getText().toString();
+                bundle.putString("Week Price",weekPrice);
+                addBikeIntent.putExtras(bundle);*/
                 startActivity(addBikeIntent);
                 return true;
             default:
@@ -88,7 +129,6 @@ public class Mainpage extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 Userinfo userinfo = new Userinfo();
-
                 userinfo.setUsername(dataSnapshot.child(uid).getValue(Userinfo.class).getUsername());
                 userName = userinfo.getUsername();
                 setTitle("Welcome " + userName);

@@ -8,10 +8,8 @@
 <ImageView
     android:id="@+id/profile_pic"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_marginTop="8dp"
-    android:layout_weight="1"
-    android:contentDescription="Profile Picture"
+    android:layout_height="275dp"
+    android:layout_margin="8dp"
     android:scaleType="centerCrop"/>
 
     <TextView
@@ -22,17 +20,9 @@
         android:layout_margin="8dp"
         android:text="@string/user_name"
         android:textSize="24sp" />
-    <TextView
-        android:id="@+id/user_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/user_address"
-        android:textSize="24sp" />
-    <!--<ListView
-        android:id="@+id/user_bike_list"
+    <LinearLayout
+        android:id="@+id/myBikeCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </ListView>-->
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
 </LinearLayout>
