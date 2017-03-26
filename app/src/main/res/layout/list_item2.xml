@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true"
+            android:isScrollContainer="false">
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/list_view"
@@ -31,13 +37,13 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/bike_name"
+                android:id="@+id/m_bike_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp" />
 
             <TextView
-                android:id="@+id/bike_Add"
+                android:id="@+id/m_bike_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp" />
@@ -45,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:id="@+id/hour_price"
+                    android:id="@+id/m_hour_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
@@ -55,7 +61,7 @@
                     android:text="1 Rs"
                     android:textColor="@color/cardview_dark_background" />
                 <TextView
-                    android:id="@+id/day_price"
+                    android:id="@+id/m_day_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
@@ -65,7 +71,7 @@
                     android:text="6 Rs"
                     android:textColor="@color/cardview_dark_background" />
                 <TextView
-                    android:id="@+id/week_price"
+                    android:id="@+id/m_week_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -81,16 +87,19 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="8dp"
             android:orientation="vertical">
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="Ready"
-             android:textAllCaps="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bike Status"
+                android:textAllCaps="true"/>
         <Switch
             android:id="@+id/ready_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:checked="false" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
+    </ScrollView>
