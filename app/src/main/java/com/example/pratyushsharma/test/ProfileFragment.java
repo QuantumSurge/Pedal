@@ -48,7 +48,6 @@ public class ProfileFragment extends Fragment{
     public TextView priceDayView;
     public TextView priceWeekView;
     public Price price;
-    public TextView userAddress;
     private ImageView profile_pic;
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
@@ -86,7 +85,6 @@ public class ProfileFragment extends Fragment{
         priceDayView = (TextView)myBikeView.findViewById(R.id.m_day_price);
         priceHourView = (TextView)myBikeView.findViewById(R.id.m_hour_price);
         priceWeekView = (TextView)myBikeView.findViewById(R.id.m_week_price);
-        userAddress =(TextView)myView.findViewById(R.id.user_address);
         mDatabaseReference.child("Cycle").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -97,14 +95,11 @@ public class ProfileFragment extends Fragment{
                 bikeAddress = currentBike.getBikeAddress();
                 currentBike.setPrice(dataSnapshot.getValue(Bike.class).getPrice());
                 price = currentBike.getPrice();
-
-                Toast.makeText(getContext(),bikeName,Toast.LENGTH_LONG).show();
                 bikeNameView.setText(bikeName);
                 bikeAddressView.setText(bikeAddress);
                 priceHourView.setText(String.valueOf(price.getHourly()));
                 priceDayView.setText(String.valueOf(price.getDaily()));
                 priceWeekView.setText(String.valueOf(price.getWeekly()));
-                userAddress.setText(bikeAddress);
             }
 
             @Override
