@@ -49,6 +49,7 @@ public class Mainpage extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.action_settings:
                 FirebaseAuth.getInstance().signOut();
+                mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
                 SharedPreferences preferences = getSharedPreferences("userlogin", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.clear();
@@ -60,6 +61,7 @@ public class Mainpage extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.lend_bike:
+
                 if(mDatabaseReference.child("Cycle").child(uid) == null){
                     Intent addBikeIntent = new Intent(getBaseContext(),AddBike.class);
                     startActivity(addBikeIntent);

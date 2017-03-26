@@ -1,6 +1,7 @@
 package com.example.pratyushsharma.test;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,11 +11,22 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class BikeAdapter<T> extends ArrayAdapter<Bike> {
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDatabaseReference;
+    private StorageReference mstorage;
+    private  ImageView bikeimg;
 
     public BikeAdapter(Activity context, ArrayList<Bike> pBikeList) {
         super(context, 0, pBikeList);
@@ -29,8 +41,13 @@ public class BikeAdapter<T> extends ArrayAdapter<Bike> {
                     R.layout.list_item, parent, false);
         }
 
+        mFirebaseDatabase= FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference();
+        mstorage = FirebaseStorage.getInstance().getReference();
+
         // Get the {@link AndroidFlavor} object located at this position in the list
         Bike currentBike =  getItem(position);
+        String uid = currentBike.getUID();
 
 
         TextView addTextView = (TextView) listItemView.findViewById(R.id.bike_Add);
@@ -48,8 +65,16 @@ public class BikeAdapter<T> extends ArrayAdapter<Bike> {
         TextView weekPriceView = (TextView) listItemView.findViewById(R.id.week_price);
         weekPriceView.setText(String.valueOf(currentBike.getPrice().getWeekly()));
 
-        //ImageView iconView = (ImageView) listItemView.findViewById(R.id.bike_Img);
+        bikeimg = (ImageView) listItemView.findViewById(R.id.bike_Img);
         //iconView.setImageResource(currentBike.getBikeId());
+
+        StorageReference storageRef = mstorage.child("Cycle").child("/"+uid);
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.with(bikeimg.getContext()).load(uri).fit().into(bikeimg);
+            }
+        });
 
         return listItemView;
     }
