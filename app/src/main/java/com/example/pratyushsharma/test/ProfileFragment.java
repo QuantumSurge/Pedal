@@ -122,7 +122,13 @@ public class ProfileFragment extends Fragment{
                             priceHourView.setText(String.valueOf(price.getHourly()));
                             priceDayView.setText(String.valueOf(price.getDaily()));
                             priceWeekView.setText(String.valueOf(price.getWeekly()));
-
+                            StorageReference storageRef = mstorage.child("Cycle").child("/"+uid);
+                            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Picasso.with(bikeImage.getContext()).load(uri).fit().into(bikeImage);
+                                }
+                            });
                         }
 
                         @Override
