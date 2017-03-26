@@ -117,10 +117,12 @@ public class ProfileFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 if (readySwitch.isChecked()){
+                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
                     //code for ready state
-                    Toast.makeText(getActivity(),"Locked and Loaded",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Online and ready to lend",Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
                     //code for non ready state
                     Toast.makeText(getActivity(),"Offline",Toast.LENGTH_SHORT).show();
                 }
