@@ -26,7 +26,6 @@ public class BikeAdapter<T> extends ArrayAdapter<Bike> {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private StorageReference mstorage;
-    private  ImageView bikeimg;
 
     public BikeAdapter(Activity context, ArrayList<Bike> pBikeList) {
         super(context, 0, pBikeList);
@@ -36,18 +35,26 @@ public class BikeAdapter<T> extends ArrayAdapter<Bike> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItemView = convertView;
-        if(listItemView == null) {
+        if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.list_item, parent, false);
         }
 
-        mFirebaseDatabase= FirebaseDatabase.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
         mstorage = FirebaseStorage.getInstance().getReference();
 
         // Get the {@link AndroidFlavor} object located at this position in the list
-        Bike currentBike =  getItem(position);
+        Bike currentBike = getItem(position);
         String uid = currentBike.getUID();
+        StorageReference storageRef = mstorage.child("Cycle").child("/"+uid);
+        final ImageView bike_Img = (ImageView) listItemView.findViewById(R.id.bike_Img);
+        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.with(bike_Img.getContext()).load(uri).fit().into(bike_Img);
+            }
+        });
 
 
         TextView addTextView = (TextView) listItemView.findViewById(R.id.bike_Add);
@@ -65,16 +72,10 @@ public class BikeAdapter<T> extends ArrayAdapter<Bike> {
         TextView weekPriceView = (TextView) listItemView.findViewById(R.id.week_price);
         weekPriceView.setText(String.valueOf(currentBike.getPrice().getWeekly()));
 
-        bikeimg = (ImageView) listItemView.findViewById(R.id.bike_Img);
-        //iconView.setImageResource(currentBike.getBikeId());
 
-        StorageReference storageRef = mstorage.child("Cycle").child("/"+uid);
-        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.with(bikeimg.getContext()).load(uri).fit().into(bikeimg);
-            }
-        });
+
+
+
 
         return listItemView;
     }

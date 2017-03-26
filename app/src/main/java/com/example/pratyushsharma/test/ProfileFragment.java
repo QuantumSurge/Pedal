@@ -61,6 +61,9 @@ public class ProfileFragment extends Fragment{
     private String uid;
     private StorageReference mstorage;
     private FirebaseAuth mFirebaseAuth;
+    public Boolean bike;
+    public ImageView bikeImage;
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
@@ -99,11 +102,13 @@ public class ProfileFragment extends Fragment{
                     priceDayView = (TextView)myBikeView.findViewById(R.id.m_day_price);
                     priceHourView = (TextView)myBikeView.findViewById(R.id.m_hour_price);
                     priceWeekView = (TextView)myBikeView.findViewById(R.id.m_week_price);
+                    bikeImage = (ImageView)myBikeView.findViewById(R.id.bike_Img);
 
                     mDatabaseReference.child("Cycle").child(uid).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Bike currentBike = new Bike();
+
 
                             if(myBikeView == null){
                                 currentBike.setBikename(dataSnapshot.getValue(Bike.class).getBikename());
@@ -117,7 +122,15 @@ public class ProfileFragment extends Fragment{
                                 priceHourView.setText(String.valueOf(price.getHourly()));
                                 priceDayView.setText(String.valueOf(price.getDaily()));
                                 priceWeekView.setText(String.valueOf(price.getWeekly()));
+                                StorageReference storageRef = mstorage.child("Cycle").child("/"+uid);
+                                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        Picasso.with(bikeImage.getContext()).load(uri).fit().into(bikeImage);
+                                    }
+                                });
                         }
+
                         }
 
                         @Override
