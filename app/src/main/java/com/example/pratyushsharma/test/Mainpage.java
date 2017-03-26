@@ -119,7 +119,6 @@ public class Mainpage extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 Userinfo userinfo = new Userinfo();
-
                 userinfo.setUsername(dataSnapshot.child(uid).getValue(Userinfo.class).getUsername());
                 userName = userinfo.getUsername();
                 setTitle("Welcome " + userName);
