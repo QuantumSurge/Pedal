@@ -148,6 +148,7 @@ public class ProfileFragment extends Fragment{
                     });
 
                 }
+
                 else {
                     bike = false;
                 }
