@@ -49,7 +49,6 @@ public class Mainpage extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.action_settings:
                 FirebaseAuth.getInstance().signOut();
-                mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
                 SharedPreferences preferences = getSharedPreferences("userlogin", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.clear();
@@ -60,17 +59,28 @@ public class Mainpage extends AppCompatActivity {
                 Toast.makeText(getBaseContext(),"Successfully Logged out",Toast.LENGTH_LONG).show();
                 finish();
                 return true;
-            case R.id.lend_bike:
 
-                if(mDatabaseReference.child("Cycle").child(uid) == null){
-                    Intent addBikeIntent = new Intent(getBaseContext(),AddBike.class);
-                    startActivity(addBikeIntent);
+            case R.id.lend_bike:
+                mDatabaseReference.child("Cycle").child(uid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            Toast.makeText(getBaseContext(),"You can only lend one bicycle.",Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Intent addBikeIntent = new Intent(getBaseContext(),AddBike.class);
+                            startActivity(addBikeIntent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
                 return true;
-                }
-                else{
-                    Toast.makeText(getBaseContext(),"You can only lend one bicycle.",Toast.LENGTH_LONG).show();
-                    return true;
-                }
+
+
             case R.id.edit_bike:
                 Intent addBikeIntent = new Intent(getBaseContext(),AddBike.class);
                 /*Bundle bundle = new Bundle();
