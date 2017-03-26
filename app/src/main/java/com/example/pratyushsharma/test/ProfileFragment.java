@@ -54,7 +54,6 @@ public class ProfileFragment extends Fragment{
     public TextView priceWeekView;
     public Price price;
     public TextView userAddress;
-    public Boolean bike;
     private ImageView profile_pic;
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
@@ -108,9 +107,6 @@ public class ProfileFragment extends Fragment{
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Bike currentBike = new Bike();
-
-
-                            if(myBikeView == null){
                                 currentBike.setBikename(dataSnapshot.getValue(Bike.class).getBikename());
                                 bikeName = currentBike.getBikename();
                                 currentBike.setBikeAddress(dataSnapshot.getValue(Bike.class).getBikeAddress());
@@ -129,8 +125,6 @@ public class ProfileFragment extends Fragment{
                                         Picasso.with(bikeImage.getContext()).load(uri).fit().into(bikeImage);
                                     }
                                 });
-                        }
-
                         }
 
                         @Override
