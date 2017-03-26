@@ -47,7 +47,6 @@ public class BikeDetail extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         final String uid = bundle.getString("uid");
-        DataReadAndWrite_Sharma
         String bikeName = bundle.getString("bikeName");
         String bikeAddress = bundle.getString("bikeAddress");
         int priceHourly = bundle.getInt("priceHourly");
