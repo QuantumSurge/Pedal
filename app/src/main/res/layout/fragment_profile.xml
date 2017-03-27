@@ -7,8 +7,9 @@
     tools:context="com.example.pratyushsharma.test.ProfileFragment">
 <ImageView
     android:id="@+id/profile_pic"
-    android:layout_width="match_parent"
+    android:layout_width="275dp"
     android:layout_height="275dp"
+    android:layout_gravity="center_horizontal"
     android:layout_margin="8dp"
     android:adjustViewBounds="true"
     android:scaleType="centerCrop"/>
