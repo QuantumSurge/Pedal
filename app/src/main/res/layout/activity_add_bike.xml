@@ -18,8 +18,8 @@
         android:layout_margin="8dp"
         android:adjustViewBounds="true"
         android:clickable="true"
-        android:src="@android:drawable/ic_menu_camera"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:src="@android:drawable/ic_menu_camera"/>
     <EditText
         android:id="@+id/bike_name"
         android:layout_width="wrap_content"

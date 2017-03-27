@@ -4,12 +4,12 @@
     android:layout_height="match_parent" android:background="@color/cardview_dark_background"
     android:orientation="vertical">
     <ImageView
+        android:id="@+id/bikeimg_rentnow"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.33"
         android:adjustViewBounds="true"
-        android:src="@drawable/icon"
-        android:id="@+id/bikeimg_rentnow"/>
+        android:src="@drawable/icon"/>
     <TextView
         android:id="@+id/bike_name"
         android:layout_width="wrap_content"
@@ -82,10 +82,10 @@
 
     </LinearLayout>
         <Button
+            android:id="@+id/callbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="@android:drawable/ic_menu_call"
-            android:id="@+id/callbtn"/>
+            android:background="@android:drawable/ic_menu_call"/>
 
 </LinearLayout>

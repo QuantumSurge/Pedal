@@ -41,6 +41,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Vector;
 
+import static android.R.interpolator.linear;
 import static android.widget.Toast.LENGTH_SHORT;
 
 
@@ -53,16 +54,14 @@ public class ProfileFragment extends Fragment{
     public TextView priceDayView;
     public TextView priceWeekView;
     public Price price;
-    public TextView userAddress;
+    public Boolean bike;
+    public ImageView bikeImage;
     private ImageView profile_pic;
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
     private String uid;
     private StorageReference mstorage;
     private FirebaseAuth mFirebaseAuth;
-    public Boolean bike;
-    public ImageView bikeImage;
-
 
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
@@ -89,8 +88,48 @@ public class ProfileFragment extends Fragment{
                 Picasso.with(profile_pic.getContext()).load(uri).fit().into(profile_pic);
             }
         });
-        LinearLayout linearLayout = (LinearLayout) myView.findViewById(R.id.myBikeCard);
+        final LinearLayout linearLayout = (LinearLayout) myView.findViewById(R.id.myBikeCard);
         final View myBikeView = inflater.inflate(R.layout.list_item2,container,false);
+
+
+        mDatabaseReference.child("Cycle").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(uid)){
+                    linearLayout.removeView(myBikeView);
+                    linearLayout.addView(myBikeView);
+                    //Switch code for ready and non ready state switching
+                    final Switch readySwitch = (Switch) myView.findViewById(R.id.ready_switch);
+                    readySwitch.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v) {
+                            if (readySwitch.isChecked()){
+                                mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
+                                //code for ready state
+                                Toast.makeText(getActivity(),"Online and ready to lend", LENGTH_SHORT).show();
+                            }
+                            else{
+                                mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
+                                //code for non ready state
+                                Toast.makeText(getActivity(),"Offline", LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+                else{
+                    TextView myBikeView = new TextView(getContext());
+                    myBikeView.setText("Go to the menu and put your bike up for renting");
+                    myBikeView.setGravity(1);
+                    linearLayout.addView(myBikeView);
+                }
+
+                }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         mDatabaseReference.child("Cycle").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -134,7 +173,7 @@ public class ProfileFragment extends Fragment{
                     });
 
 
-                    //Switch code for ready and non ready state switching
+                    /*//Switch code for ready and non ready state switching
                     final Switch readySwitch = (Switch) myView.findViewById(R.id.ready_switch);
                     readySwitch.setOnClickListener(new View.OnClickListener(){
                         @Override
@@ -150,7 +189,7 @@ public class ProfileFragment extends Fragment{
                                 Toast.makeText(getActivity(),"Offline", LENGTH_SHORT).show();
                             }
                         }
-                    });
+                    });*/
 
                 }
 
@@ -165,7 +204,6 @@ public class ProfileFragment extends Fragment{
             }
         });
 
-        linearLayout.addView(myBikeView);
         return myView;
     }
 
