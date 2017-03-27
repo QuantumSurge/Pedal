@@ -83,13 +83,15 @@ public class AddBike extends AppCompatActivity {
 
         upload.setOnClickListener(new View.OnClickListener() {
 
+
             @Override
             public void onClick(View view) {
 
-                progress.setMessage("Uploading...");
-                progress.show();
-
                 if (filePath != null) {
+
+                    progress.setMessage("Uploading...");
+                    progress.show();
+
                     final StorageReference profileRef = uploadimg.child(user.getUid());
 
 

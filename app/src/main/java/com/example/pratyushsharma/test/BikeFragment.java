@@ -34,11 +34,11 @@ import java.util.Iterator;
 
 public class BikeFragment extends Fragment {
 
-    private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
+    {
         View rootView = inflater.inflate(R.layout.activity_bike, container, false);
         final ArrayList<Bike> bikeList = new ArrayList<>();
         mFirebaseDatabase=FirebaseDatabase.getInstance();
@@ -52,7 +52,21 @@ public class BikeFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                Bike currentBike = bikeList.get(position);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("uid",currentBike.getUID());
+                bundle.putString("bikeName",currentBike.getBikename());
+                bundle.putString("bikeAddress",currentBike.getBikeAddress());
+                bundle.putInt("priceHourly",currentBike.getPrice().getHourly());
+                bundle.putInt("priceDaily",currentBike.getPrice().getDaily());
+                bundle.putInt("priceWeekly",currentBike.getPrice().getWeekly());
+                basic.putExtras(bundle);
+
                 startActivity(basic);
+
             }
         });
 
@@ -65,17 +79,23 @@ public class BikeFragment extends Fragment {
                 bikeList.clear();
                 while(items.hasNext()){
                     DataSnapshot item = items.next();
+
                     String address,name,uid,mboolean;
                     int hourly , daily , weekly;
+
                     address = item.child("bikeAddress").getValue().toString();
                     name = item.child("bikename").getValue().toString();
                     uid = item.child("uid").getValue().toString();
+
                     hourly = Integer.parseInt(item.child("price").child("hourly").getValue().toString());
                     daily = Integer.parseInt(item.child("price").child("daily").getValue().toString());
                     weekly =Integer.parseInt(item.child("price").child("weekly").getValue().toString());
+
                     mboolean = item.child("boolean").getValue().toString();
+
                     Price rate = new Price(hourly,daily,weekly);
                     Bike value = new Bike(name,address,uid,mboolean,rate);
+
                     if(mboolean.equals("true")){
                         bikeList.add(value);
                     }
