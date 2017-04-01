@@ -36,12 +36,22 @@ public class Mainpage extends AppCompatActivity {
     private String uid;
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_mainpage, menu);
-        Log.v("Mainpage","OnCreateOptions");
-        return true;
+        mDatabaseReference.child("Cycle").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!(dataSnapshot.hasChild(uid))){
+                    menu.removeItem(R.id.edit_bike);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+        return true;
     }
 
     @Override

@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,10 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
-import java.nio.BufferUnderflowException;
 
 /**
  * Created by Vikramaditya Patil on 17-03-2017.
@@ -39,7 +34,7 @@ public class BikeDetail extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bike_detail2);
+        setContentView(R.layout.bike_detail);
 
         mFirebaseDatabase=FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
