@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ public class Mainpage extends AppCompatActivity {
     public boolean onCreateOptionsMenu(final Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_mainpage, menu);
-        mDatabaseReference.child("Cycle").addValueEventListener(new ValueEventListener() {
+        /*mDatabaseReference.child("Cycle").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!(dataSnapshot.hasChild(uid))){
@@ -50,7 +51,7 @@ public class Mainpage extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
         return true;
     }
 
@@ -91,9 +92,9 @@ public class Mainpage extends AppCompatActivity {
                 return true;
 
 
-            case R.id.edit_bike:
-                Intent addBikeIntent = new Intent(getBaseContext(),AddBike.class);
-                /*Bundle bundle = new Bundle();
+            /*case R.id.edit_bike:
+                Intent addBikeIntent = new Intent(getBaseContext(),EditBike.class);
+                Bundle bundle = new Bundle();
                 TextView addView = (TextView) findViewById(R.id.m_bike_add);
                 String bikeAdd = addView.getText().toString();
                 bundle.putString("Bike Address",bikeAdd);
@@ -110,9 +111,9 @@ public class Mainpage extends AppCompatActivity {
                 TextView weekView = (TextView) findViewById(R.id.week_price);
                 String weekPrice = weekView.getText().toString();
                 bundle.putString("Week Price",weekPrice);
-                addBikeIntent.putExtras(bundle);*/
+                addBikeIntent.putExtras(bundle);
                 startActivity(addBikeIntent);
-                return true;
+                return true;*/
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -98,6 +98,24 @@ public class ProfileFragment extends Fragment{
                 if (dataSnapshot.hasChild(uid)){
                     linearLayout.removeView(myBikeView);
                     linearLayout.addView(myBikeView);
+                    myBikeView.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            Intent editBikeIntent = new Intent(getActivity(), EditBike.class);
+                            Bundle bundle = new Bundle();
+
+                            String str[] = bikeAddress.split("\\s+");
+                            bundle.putStringArray("Bike Address",str);
+                            bundle.putString("Bike Name",bikeName);
+                            bundle.putString("Hour Price",String.valueOf(price.getHourly()));
+                            bundle.putString("Day Price",String.valueOf(price.getDaily()));
+                            bundle.putString("Week Price",String.valueOf(price.getWeekly()));
+
+                            editBikeIntent.putExtras(bundle);
+                            startActivity(editBikeIntent);
+                            return false;
+                        }
+                    });
                     //Switch code for ready and non ready state switching
                     final Switch readySwitch = (Switch) myView.findViewById(R.id.ready_switch);
                     readySwitch.setOnClickListener(new View.OnClickListener(){
@@ -157,6 +175,9 @@ public class ProfileFragment extends Fragment{
                                 priceHourView.setText(String.valueOf(price.getHourly()));
                                 priceDayView.setText(String.valueOf(price.getDaily()));
                                 priceWeekView.setText(String.valueOf(price.getWeekly()));
+
+
+
                                 StorageReference storageRef = mstorage.child("Cycle").child("/"+uid);
                                 storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
@@ -171,26 +192,6 @@ public class ProfileFragment extends Fragment{
 
                         }
                     });
-
-
-                    /*//Switch code for ready and non ready state switching
-                    final Switch readySwitch = (Switch) myView.findViewById(R.id.ready_switch);
-                    readySwitch.setOnClickListener(new View.OnClickListener(){
-                        @Override
-                        public void onClick(View v) {
-                            if (readySwitch.isChecked()){
-                                mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
-                                //code for ready state
-                                Toast.makeText(getActivity(),"Online and ready to lend", LENGTH_SHORT).show();
-                            }
-                            else{
-                                mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
-                                //code for non ready state
-                                Toast.makeText(getActivity(),"Offline", LENGTH_SHORT).show();
-                            }
-                        }
-                    });*/
-
                 }
 
                 else {
