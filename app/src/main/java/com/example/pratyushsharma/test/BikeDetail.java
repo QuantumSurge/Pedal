@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -39,7 +39,7 @@ public class BikeDetail extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bike_detail);
+        setContentView(R.layout.bike_detail2);
 
         mFirebaseDatabase=FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
@@ -52,7 +52,7 @@ public class BikeDetail extends AppCompatActivity {
         int priceHourly = bundle.getInt("priceHourly");
         int priceDaily = bundle.getInt("priceDaily");
         int priceWeekly = bundle.getInt("priceWeekly");
-        Button call = (Button) findViewById(R.id.callbtn);
+
         final ImageView bikeimg_rentnow = (ImageView) findViewById(R.id.bikeimg_rentnow);
 
 
@@ -63,8 +63,7 @@ public class BikeDetail extends AppCompatActivity {
                 Picasso.with(bikeimg_rentnow.getContext()).load(uri).fit().into(bikeimg_rentnow);
             }
         });
-
-
+        FloatingActionButton call = (FloatingActionButton) findViewById(R.id.callbtn);
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +111,5 @@ public class BikeDetail extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         getWindow().setLayout( (int) (width*.9) , (int) (height*.7) );
-
     }
 }
