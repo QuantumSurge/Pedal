@@ -28,7 +28,7 @@
         <activity
             android:name=".Signup"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Mainpage"/>
+        <activity android:name=".Mainpage" />
         <activity
             android:name=".BikeDetail"
             android:theme="@style/AppTheme.CustomTheme" />
@@ -36,8 +36,10 @@
         <activity
             android:name=".AddBike"
             android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".EditBike"
-            android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity
+            android:name=".EditBike"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".CurrentRide"></activity>
     </application>
 
 </manifest>
