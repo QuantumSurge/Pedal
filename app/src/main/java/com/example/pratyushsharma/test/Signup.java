@@ -178,7 +178,7 @@ public class Signup extends AppCompatActivity {
                             sendVerificationEmail();
 
 
-                            Userinfo userinfo = new Userinfo(mobile, name);
+                            Userinfo userinfo = new Userinfo(mobile, name,"false");
 
                             databasereference.child(user.getUid()).setValue(userinfo);
                         } else {
@@ -199,7 +199,7 @@ public class Signup extends AppCompatActivity {
 
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Signup.this, "Registered Successfully. Please verify your e-mail.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Signup.this, "Registered Successfully. Please verify your e-mail.", Toast.LENGTH_LONG).show();
                             // after email is sent just logout the user and finish this activity
                             FirebaseAuth.getInstance().signOut();
 

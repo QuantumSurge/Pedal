@@ -126,12 +126,13 @@ public class BikeFragment extends Fragment {
                                 while(items.hasNext()){
                                     DataSnapshot item = items.next();
 
-                                    String address,name,uid,mboolean;
+                                    String address,name,uid,mboolean,status;
                                     int hourly , daily , weekly;
 
                                     address = item.child("bikeAddress").getValue().toString();
                                     name = item.child("bikename").getValue().toString();
                                     uid = item.child("uid").getValue().toString();
+                                    status = item.child("status").getValue().toString();
 
                                     hourly = Integer.parseInt(item.child("price").child("hourly").getValue().toString());
                                     daily = Integer.parseInt(item.child("price").child("daily").getValue().toString());
@@ -140,7 +141,7 @@ public class BikeFragment extends Fragment {
                                     mboolean = item.child("boolean").getValue().toString();
 
                                     Price rate = new Price(hourly,daily,weekly);
-                                    Bike value = new Bike(name,address,uid,mboolean,rate);
+                                    Bike value = new Bike(name,address,uid,mboolean,status,rate);
 
                                     String [] hostel = address.split("\\s+");
 
@@ -193,12 +194,13 @@ public class BikeFragment extends Fragment {
                 while(items.hasNext()){
                     DataSnapshot item = items.next();
 
-                    String address,name,uid,mboolean;
+                    String address,name,uid,mboolean,status;
                     int hourly , daily , weekly;
 
                     address = item.child("bikeAddress").getValue().toString();
                     name = item.child("bikename").getValue().toString();
                     uid = item.child("uid").getValue().toString();
+                    status = item.child("status").getValue().toString();
 
                     hourly = Integer.parseInt(item.child("price").child("hourly").getValue().toString());
                     daily = Integer.parseInt(item.child("price").child("daily").getValue().toString());
@@ -207,7 +209,7 @@ public class BikeFragment extends Fragment {
                     mboolean = item.child("boolean").getValue().toString();
 
                     Price rate = new Price(hourly,daily,weekly);
-                    Bike value = new Bike(name,address,uid,mboolean,rate);
+                    Bike value = new Bike(name,address,uid,mboolean,status,rate);
 
                     if(mboolean.equals("true")){
                         bikeList.add(value);

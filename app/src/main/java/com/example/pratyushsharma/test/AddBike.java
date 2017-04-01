@@ -109,7 +109,7 @@ public class AddBike extends AppCompatActivity {
                             String mBoolean = "true";
                             Price Price = new Price(mHourly,mDaily,mWeekly);
 
-                            Bike bike =new Bike(mBikename,mBikeAddress,mUID,mBoolean,Price);
+                            Bike bike =new Bike(mBikename,mBikeAddress,mUID,mBoolean,"false",Price);
                             databasereference = FirebaseDatabase.getInstance().getReference();
                             databasereference.child("Cycle").child(user.getUid()).setValue(bike);
                             progress.dismiss();
