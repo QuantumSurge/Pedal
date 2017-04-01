@@ -1,6 +1,7 @@
 package com.example.pratyushsharma.test;
 
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.media.RatingCompat;
 import android.support.v4.util.ArrayMap;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -137,7 +139,13 @@ public class ProfileFragment extends Fragment{
                     if(dataSnapshot.child(uid).child("status").getValue().toString().equals("true")){
                         readySwitch.setEnabled(false);
                         mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
-                        myBikeView.setOnLongClickListener(null);
+                        myBikeView.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                Toast.makeText(getContext(),"The rider has to end the tide first.",LENGTH_SHORT).show();
+                                return false;
+                            }
+                        });
                     }
                     else if(dataSnapshot.child(uid).child("status").getValue().toString().equals("false")){
                         readySwitch.setEnabled(true);
