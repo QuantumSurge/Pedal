@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,12 +37,10 @@ public class Mainpage extends AppCompatActivity {
     private String uid;
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_mainpage, menu);
-        Log.v("Mainpage","OnCreateOptions");
         return true;
-
     }
 
     @Override
@@ -79,30 +78,6 @@ public class Mainpage extends AppCompatActivity {
                     }
                 });
                 return true;
-
-
-            case R.id.edit_bike:
-                Intent addBikeIntent = new Intent(getBaseContext(),AddBike.class);
-                /*Bundle bundle = new Bundle();
-                TextView addView = (TextView) findViewById(R.id.m_bike_add);
-                String bikeAdd = addView.getText().toString();
-                bundle.putString("Bike Address",bikeAdd);
-                TextView nameView = (TextView) findViewById(R.id.m_bike_name);
-                String bikeName = nameView.getText().toString();
-                bundle.putString("Bike Name",bikeName);
-
-                TextView hourView = (TextView) findViewById(R.id.hour_price);
-                String hourPrice = hourView.getText().toString();
-                bundle.putString("Hour Price",hourPrice);
-                TextView dayView = (TextView) findViewById(R.id.day_price);
-                String dayPrice = dayView.getText().toString();
-                bundle.putString("Day Price",dayPrice);
-                TextView weekView = (TextView) findViewById(R.id.week_price);
-                String weekPrice = weekView.getText().toString();
-                bundle.putString("Week Price",weekPrice);
-                addBikeIntent.putExtras(bundle);*/
-                startActivity(addBikeIntent);
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -111,13 +86,10 @@ public class Mainpage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v("mainpage","oncreatebeginning");
         setContentView(R.layout.activity_mainpage);
-        Log.v("MainPage","setcontentview");
         mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
         uid = user.getUid();
-        Log.v("mainpage","firebaseasuth");
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference();
 

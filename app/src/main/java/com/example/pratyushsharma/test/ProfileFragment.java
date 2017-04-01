@@ -3,6 +3,8 @@ package com.example.pratyushsharma.test;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.media.ImageWriter;
 import android.net.Uri;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import android.widget.LinearLayout;
@@ -98,23 +101,79 @@ public class ProfileFragment extends Fragment{
                 if (dataSnapshot.hasChild(uid)){
                     linearLayout.removeView(myBikeView);
                     linearLayout.addView(myBikeView);
+
+                    if(dataSnapshot.child(uid).child("status").getValue().toString().equals("false")){
+
+                        myBikeView.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View v) {
+                                Intent editBikeIntent = new Intent(getActivity(), EditBike.class);
+                                Bundle bundle = new Bundle();
+
+                                String str[] = bikeAddress.split("\\s+");
+                                bundle.putStringArray("Bike Address",str);
+                                bundle.putString("Bike Name",bikeName);
+                                bundle.putString("Hour Price",String.valueOf(price.getHourly()));
+                                bundle.putString("Day Price",String.valueOf(price.getDaily()));
+                                bundle.putString("Week Price",String.valueOf(price.getWeekly()));
+
+
+                                final ImageView imageView = (ImageView) myView.findViewById(R.id.bike_Img);
+                                final BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+                                final Bitmap yourBitmap = bitmapDrawable.getBitmap();
+
+                                editBikeIntent.putExtra("BitmapImage", yourBitmap);
+                                editBikeIntent.putExtras(bundle);
+                                startActivity(editBikeIntent);
+                                return false;
+                            }
+                        });
+
+                    }
+
                     //Switch code for ready and non ready state switching
                     final Switch readySwitch = (Switch) myView.findViewById(R.id.ready_switch);
-                    readySwitch.setOnClickListener(new View.OnClickListener(){
-                        @Override
-                        public void onClick(View v) {
-                            if (readySwitch.isChecked()){
-                                mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
-                                //code for ready state
-                                Toast.makeText(getActivity(),"Online and ready to lend", LENGTH_SHORT).show();
+
+                    if(dataSnapshot.child(uid).child("status").getValue().toString().equals("true")){
+                        readySwitch.setEnabled(false);
+                        mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
+                        myBikeView.setOnLongClickListener(null);
+                    }
+                    else if(dataSnapshot.child(uid).child("status").getValue().toString().equals("false")){
+                        readySwitch.setEnabled(true);
+                        readySwitch.setOnClickListener(new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v) {
+                                if (readySwitch.isChecked()){
+                                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
+                                    //code for ready state
+                                    Toast.makeText(getActivity(),"Online and ready to lend", LENGTH_SHORT).show();
+                                }
+                                else{
+                                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
+                                    //code for non ready state
+                                    Toast.makeText(getActivity(),"Offline", LENGTH_SHORT).show();
+                                }
                             }
-                            else{
-                                mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
-                                //code for non ready state
-                                Toast.makeText(getActivity(),"Offline", LENGTH_SHORT).show();
+                        });
+                    }
+                    else{
+                        readySwitch.setOnClickListener(new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v) {
+                                if (readySwitch.isChecked()){
+                                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
+                                    //code for ready state
+                                    Toast.makeText(getActivity(),"Online and ready to lend", LENGTH_SHORT).show();
+                                }
+                                else{
+                                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
+                                    //code for non ready state
+                                    Toast.makeText(getActivity(),"Offline", LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
                 else{
                     TextView myBikeView = new TextView(getContext());
@@ -130,6 +189,8 @@ public class ProfileFragment extends Fragment{
 
             }
         });
+
+
         mDatabaseReference.child("Cycle").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -157,6 +218,9 @@ public class ProfileFragment extends Fragment{
                                 priceHourView.setText(String.valueOf(price.getHourly()));
                                 priceDayView.setText(String.valueOf(price.getDaily()));
                                 priceWeekView.setText(String.valueOf(price.getWeekly()));
+
+
+
                                 StorageReference storageRef = mstorage.child("Cycle").child("/"+uid);
                                 storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
@@ -171,26 +235,6 @@ public class ProfileFragment extends Fragment{
 
                         }
                     });
-
-
-                    /*//Switch code for ready and non ready state switching
-                    final Switch readySwitch = (Switch) myView.findViewById(R.id.ready_switch);
-                    readySwitch.setOnClickListener(new View.OnClickListener(){
-                        @Override
-                        public void onClick(View v) {
-                            if (readySwitch.isChecked()){
-                                mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
-                                //code for ready state
-                                Toast.makeText(getActivity(),"Online and ready to lend", LENGTH_SHORT).show();
-                            }
-                            else{
-                                mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
-                                //code for non ready state
-                                Toast.makeText(getActivity(),"Offline", LENGTH_SHORT).show();
-                            }
-                        }
-                    });*/
-
                 }
 
                 else {
@@ -203,6 +247,7 @@ public class ProfileFragment extends Fragment{
 
             }
         });
+
 
         return myView;
     }

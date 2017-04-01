@@ -28,7 +28,7 @@
     <string name="user_address">H22 2016</string>
     <string name="bike_name">Bike Name</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    
+
     <!-- add Bike activity-->
     <string-array name="hostelNames">
         <item>H1</item>
@@ -53,7 +53,4 @@
         <item>H16C</item>
     </string-array>
 
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
