@@ -3,6 +3,8 @@ package com.example.pratyushsharma.test;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.media.ImageWriter;
 import android.net.Uri;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import android.widget.LinearLayout;
@@ -111,6 +114,12 @@ public class ProfileFragment extends Fragment{
                             bundle.putString("Day Price",String.valueOf(price.getDaily()));
                             bundle.putString("Week Price",String.valueOf(price.getWeekly()));
 
+
+                            final ImageView imageView = (ImageView) myView.findViewById(R.id.bike_Img);
+                            final BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+                            final Bitmap yourBitmap = bitmapDrawable.getBitmap();
+
+                            editBikeIntent.putExtra("BitmapImage", yourBitmap);
                             editBikeIntent.putExtras(bundle);
                             startActivity(editBikeIntent);
                             return false;
@@ -204,6 +213,7 @@ public class ProfileFragment extends Fragment{
 
             }
         });
+
 
         return myView;
     }

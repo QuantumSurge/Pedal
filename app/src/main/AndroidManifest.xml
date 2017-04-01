@@ -28,7 +28,7 @@
         <activity
             android:name=".Signup"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Mainpage" />
+        <activity android:name=".Mainpage"/>
         <activity
             android:name=".BikeDetail"
             android:theme="@style/AppTheme.CustomTheme" />
