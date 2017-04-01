@@ -13,8 +13,11 @@
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <!-- Custom Theme for overlay activities -->
     <style name="AppTheme.CustomTheme">
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>

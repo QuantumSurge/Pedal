@@ -34,11 +34,10 @@ import java.io.IOException;
 
 public class AddBike extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 4;
-    Spinner addressSpinner;
     ArrayAdapter<CharSequence> adapter;
     private TextView name;
     private TextView room;
-    private Spinner hostel;
+    private Spinner hostelSpinner;
     private NumberPicker hourly;
     private NumberPicker daily;
     private NumberPicker weekly;
@@ -57,7 +56,7 @@ public class AddBike extends AppCompatActivity {
 
         name = (TextView) findViewById(R.id.bike_name);
         room = (TextView) findViewById(R.id.room);
-        hostel = (Spinner) findViewById(R.id.address_spinner);
+        hostelSpinner = (Spinner) findViewById(R.id.address_spinner);
         hourly = (NumberPicker) findViewById(R.id.hourlyPicker);
         daily = (NumberPicker) findViewById(R.id.dailyPicker);
         weekly = (NumberPicker) findViewById(R.id.weeklyPicker);
@@ -99,7 +98,7 @@ public class AddBike extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             String mBikename = name.getText().toString();
-                            String mhostel = hostel.getSelectedItem().toString();
+                            String mhostel = hostelSpinner.getSelectedItem().toString();
                             String mroom= room.getText().toString();
                             String mBikeAddress = mhostel + " " + mroom;
                             int mHourly = hourly.getValue();
@@ -138,35 +137,25 @@ public class AddBike extends AppCompatActivity {
         int height = dm.heightPixels;
         getWindow().setLayout( (int) (width*.9) , (int) (height*.7) );
 
-        addressSpinner  = (Spinner) findViewById(R.id.address_spinner);
+
         adapter = ArrayAdapter.createFromResource(this,R.array.hostelNames,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        addressSpinner.setAdapter(adapter);
-        addressSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(),parent.getItemAtPosition(position)+" selected",Toast.LENGTH_LONG).show();
-            }
+        hostelSpinner.setAdapter(adapter);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(getBaseContext(),"Please select your hostel",Toast.LENGTH_LONG).show();
-            }
-        });
 
         NumberPicker dailyPicker = (NumberPicker) findViewById(R.id.dailyPicker);
-        dailyPicker.setMaxValue(30);
-        dailyPicker.setMinValue(0);
+        dailyPicker.setMaxValue(getBaseContext().getResources().getInteger(R.integer.maxPriceForDay));
+        dailyPicker.setMinValue(getBaseContext().getResources().getInteger(R.integer.minPriceForDay));
         dailyPicker.setWrapSelectorWheel(true);
 
         NumberPicker hourlyPicker = (NumberPicker) findViewById(R.id.hourlyPicker);
-        hourlyPicker.setMaxValue(30);
-        hourlyPicker.setMinValue(0);
+        hourlyPicker.setMaxValue(getBaseContext().getResources().getInteger(R.integer.maxPriceForHour));
+        hourlyPicker.setMinValue(getBaseContext().getResources().getInteger(R.integer.minPriceForHour));
         hourlyPicker.setWrapSelectorWheel(true);
 
         NumberPicker weeklyPicker = (NumberPicker) findViewById(R.id.weeklyPicker);
-        weeklyPicker.setMaxValue(30);
-        weeklyPicker.setMinValue(0);
+        weeklyPicker.setMaxValue(getBaseContext().getResources().getInteger(R.integer.maxPriceForWeek));
+        weeklyPicker.setMinValue(getBaseContext().getResources().getInteger(R.integer.minPriceForWeek));
         weeklyPicker.setWrapSelectorWheel(true);
 
 

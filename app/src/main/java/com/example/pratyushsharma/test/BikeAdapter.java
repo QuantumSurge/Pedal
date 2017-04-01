@@ -72,11 +72,6 @@ public class BikeAdapter<T> extends ArrayAdapter<Bike> {
         TextView weekPriceView = (TextView) listItemView.findViewById(R.id.week_price);
         weekPriceView.setText(String.valueOf(currentBike.getPrice().getWeekly()));
 
-
-
-
-
-
         return listItemView;
     }
 
