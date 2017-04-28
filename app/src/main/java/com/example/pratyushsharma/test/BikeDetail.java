@@ -84,6 +84,14 @@ public class BikeDetail extends AppCompatActivity {
 
             }
         });
+        FloatingActionButton ride = (FloatingActionButton) findViewById(R.id.ridebutton);
+        ride.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BikeDetail.this, CurrentRide.class));
+            }
+        });
+
 
         TextView bikeNameView = (TextView) findViewById(R.id.bike_name);
         bikeNameView.setText(bikeName);

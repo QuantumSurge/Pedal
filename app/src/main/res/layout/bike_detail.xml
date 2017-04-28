@@ -78,10 +78,11 @@
         android:gravity="center_horizontal">
         <TextView
             android:id="@+id/bikeAddress"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="H22"
+            android:textAlignment="center"
             android:textSize="24sp" />
 
     </LinearLayout>
@@ -96,6 +97,17 @@
         android:elevation="4dp"
         android:src="@android:drawable/ic_menu_call"
         app:layout_anchor="@id/bikeimg_rentnow"
+        app:layout_anchorGravity="bottom|right|end"/>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/ridebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/colorAccent"
+        android:clickable="true"
+        android:elevation="4dp"
+        android:src="@android:drawable/ic_media_play"
+        app:layout_anchor="@id/bikeAddress"
         app:layout_anchorGravity="bottom|right|end"/>
 
 </android.support.design.widget.CoordinatorLayout>
