@@ -113,7 +113,7 @@ public class AddBike extends AppCompatActivity {
                             databasereference.child("Cycle").child(user.getUid()).setValue(bike);
                             progress.dismiss();
                             Toast.makeText(AddBike.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(AddBike.this,ProfileFragment.class));
+                            startActivity(new Intent(AddBike.this,Mainpage.class));
                         }
                     })
                             .addOnFailureListener(new OnFailureListener() {

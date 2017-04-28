@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:hint="@string/bike_name"
+        android:hint="bike name(geared or not)"
         android:textSize="24sp"/>
     <LinearLayout
         android:layout_width="wrap_content"

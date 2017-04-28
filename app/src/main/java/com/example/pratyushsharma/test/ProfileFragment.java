@@ -93,7 +93,7 @@ public class ProfileFragment extends Fragment{
         });
         final LinearLayout linearLayout = (LinearLayout) myView.findViewById(R.id.myBikeCard);
         final View myBikeView = inflater.inflate(R.layout.list_item2,container,false);
-
+        ImageView profileView = (ImageView)  myView.findViewById(R.id.profile_pic_main);
 
         mDatabaseReference.child("Cycle").addValueEventListener(new ValueEventListener() {
             @Override
