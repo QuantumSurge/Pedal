@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,6 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import static android.R.attr.name;
 
 /**
  * Created by Vikramaditya Patil on 17-03-2017.
@@ -49,7 +52,7 @@ public class BikeDetail extends AppCompatActivity {
         int priceWeekly = bundle.getInt("priceWeekly");
 
         final ImageView bikeimg_rentnow = (ImageView) findViewById(R.id.bikeimg_rentnow);
-
+        final ImageView profileImg = (ImageView) findViewById(R.id.profile_pic);
 
         StorageReference storageRef = mstorage.child("Cycle").child("/"+uid);
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -58,6 +61,34 @@ public class BikeDetail extends AppCompatActivity {
                 Picasso.with(bikeimg_rentnow.getContext()).load(uri).fit().into(bikeimg_rentnow);
             }
         });
+        StorageReference storageRef1 = mstorage.child(uid).child("/profile.jpg");
+        storageRef1.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.with(profileImg.getContext()).load(uri).fit().into(profileImg);
+            }
+        });
+
+        final TextView profileName = (TextView) findViewById(R.id.profile_name);
+
+        mDatabaseReference.child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Userinfo userinfo = new Userinfo();
+                String name;
+
+                userinfo.setUsername(dataSnapshot.getValue(Userinfo.class).getUsername());
+                name = userinfo.getUsername();
+
+                profileName.setText(name);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         FloatingActionButton call = (FloatingActionButton) findViewById(R.id.callbtn);
         call.setOnClickListener(new View.OnClickListener() {
             @Override
