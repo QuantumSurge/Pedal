@@ -115,6 +115,7 @@ public class BikeFragment extends Fragment {
                                 item = item + " ";
                             }
                         }
+
                         hostel_list = item;
                         selectedhostels = hostel_list.split("\\s+");
 
