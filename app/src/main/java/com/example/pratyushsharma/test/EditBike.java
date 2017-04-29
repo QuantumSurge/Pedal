@@ -106,7 +106,7 @@ public class EditBike extends AppCompatActivity {
                 i.setType("image/*");
                 i.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(i, "Select an image"), PICK_IMAGE_REQUEST);
-                Toast.makeText(getBaseContext(),"upload image",Toast.LENGTH_LONG);
+                Toast.makeText(getBaseContext(),"Upload image",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -141,7 +141,7 @@ public class EditBike extends AppCompatActivity {
                             databasereference.child("Cycle").child(user.getUid()).setValue(bike);
                             progress.dismiss();
                             Toast.makeText(EditBike.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(EditBike.this, ProfileFragment.class));
+                            startActivity(new Intent(EditBike.this, Mainpage.class));
                         }
                     })
                             .addOnFailureListener(new OnFailureListener() {
@@ -153,7 +153,7 @@ public class EditBike extends AppCompatActivity {
                                 }
                             });
                 }
-                if(filePath == null){
+                else{
                     String mBikename = mBikeName.getText().toString();
                     String mhostel = hostelSpinner.getSelectedItem().toString();
                     String mroom= bikeAdd[1];
@@ -191,6 +191,7 @@ public class EditBike extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
             try {
+
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 ImageView mBikeImg = (ImageView) findViewById(R.id.bike_Img);
                 mBikeImg.setImageBitmap(bitmap);

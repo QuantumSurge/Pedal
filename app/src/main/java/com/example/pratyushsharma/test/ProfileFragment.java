@@ -46,6 +46,7 @@ import java.util.Vector;
 
 import static android.R.interpolator.linear;
 import static android.widget.Toast.LENGTH_SHORT;
+import static com.example.pratyushsharma.test.R.id.profile_pic_main;
 
 
 public class ProfileFragment extends Fragment{
@@ -65,13 +66,15 @@ public class ProfileFragment extends Fragment{
     private String uid;
     private StorageReference mstorage;
     private FirebaseAuth mFirebaseAuth;
+    private int PICK_IMAGE_REQUEST = 5;
+    private Uri filePath;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
                              Bundle savedInstanceState) {
         final View myView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        profile_pic = (ImageView) myView.findViewById(R.id.profile_pic);
+        profile_pic = (ImageView) myView.findViewById(R.id.profile_pic_main);
         mFirebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mFirebaseAuth.getCurrentUser();
         uid = user.getUid();
@@ -93,7 +96,22 @@ public class ProfileFragment extends Fragment{
         });
         final LinearLayout linearLayout = (LinearLayout) myView.findViewById(R.id.myBikeCard);
         final View myBikeView = inflater.inflate(R.layout.list_item2,container,false);
-        ImageView profileView = (ImageView)  myView.findViewById(R.id.profile_pic_main);
+        ImageView profileView = (ImageView)  myView.findViewById(profile_pic_main);
+
+        profileView.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View v) {
+                /*Intent i = new Intent();
+                i.setType("image/*");
+                i.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(i, "Select an image"), PICK_IMAGE_REQUEST);
+                */Toast.makeText(getContext(),"Upload profile pic",Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getContext(), EditProfile.class));
+                //Edit Profile here
+
+                return false;
+            }
+        });
 
         mDatabaseReference.child("Cycle").addValueEventListener(new ValueEventListener() {
             @Override
