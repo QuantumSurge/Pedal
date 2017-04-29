@@ -123,5 +123,6 @@ public class Mainpage extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
     }
+
 }
 

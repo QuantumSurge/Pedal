@@ -119,7 +119,6 @@ public class ProfileFragment extends Fragment{
                     linearLayout.removeView(myBikeView);
                     linearLayout.addView(myBikeView);
 
-                    if(dataSnapshot.child(uid).child("status").getValue().toString().equals("false")){
 
                         myBikeView.setOnLongClickListener(new View.OnLongClickListener() {
                             @Override
@@ -146,8 +145,6 @@ public class ProfileFragment extends Fragment{
                             }
                         });
 
-                    }
-
                     //Switch code for ready and non ready state switching
                     final Switch readySwitch = (Switch) myView.findViewById(R.id.ready_switch);
 
@@ -162,7 +159,7 @@ public class ProfileFragment extends Fragment{
                             }
                         });
                     }
-                    else */if(dataSnapshot.child(uid).child("status").getValue().toString().equals("false")){
+                    else */
                         readySwitch.setEnabled(true);
                         readySwitch.setOnClickListener(new View.OnClickListener(){
                             @Override
@@ -179,24 +176,7 @@ public class ProfileFragment extends Fragment{
                                 }
                             }
                         });
-                    }
-                    else{
-                        readySwitch.setOnClickListener(new View.OnClickListener(){
-                            @Override
-                            public void onClick(View v) {
-                                if (readySwitch.isChecked()){
-                                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
-                                    //code for ready state
-                                    Toast.makeText(getActivity(),"Online and ready to lend", LENGTH_SHORT).show();
-                                }
-                                else{
-                                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
-                                    //code for non ready state
-                                    Toast.makeText(getActivity(),"Offline", LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-                    }
+
                 }
                 else{
                     TextView myBikeView = new TextView(getContext());
@@ -271,8 +251,8 @@ public class ProfileFragment extends Fragment{
             }
         });
 
-
         return myView;
+
     }
 
 

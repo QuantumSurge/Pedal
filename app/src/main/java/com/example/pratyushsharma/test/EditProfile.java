@@ -147,6 +147,8 @@ public class EditProfile extends AppCompatActivity {
                 mDatabaseReference.child(user.getUid()).setValue(userinfo);
 
                 startActivity(new Intent(EditProfile.this,Mainpage.class));
+                Toast.makeText(EditProfile.this, "Profile pic will be updated upon restart.", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
