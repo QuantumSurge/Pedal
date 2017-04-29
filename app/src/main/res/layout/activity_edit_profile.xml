@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/cardview_dark_background">
     <ImageView
         android:id="@+id/profile_pic_edit"
         android:layout_width="275dp"
@@ -12,7 +13,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="8dp"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_camera"/>
     <EditText
         android:id="@+id/mobile_edit"
         android:layout_width="wrap_content"
@@ -31,5 +34,13 @@
         android:layout_margin="8dp"
         android:text="@string/user_name"
         android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"/>
 
 </LinearLayout>

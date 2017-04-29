@@ -1,6 +1,7 @@
 package com.example.pratyushsharma.test;
 
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.media.RatingCompat;
 import android.support.v4.util.ArrayMap;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -42,11 +44,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.util.Vector;
-
-import static android.R.interpolator.linear;
 import static android.widget.Toast.LENGTH_SHORT;
-import static com.example.pratyushsharma.test.R.id.profile_pic_main;
 
 
 public class ProfileFragment extends Fragment{
@@ -60,7 +58,7 @@ public class ProfileFragment extends Fragment{
     public Price price;
     public Boolean bike;
     public ImageView bikeImage;
-    private ImageView profile_pic;
+    private ImageView profilePic;
     private DatabaseReference mDatabaseReference;
     private FirebaseDatabase mFirebaseDatabase;
     private String uid;
@@ -69,12 +67,13 @@ public class ProfileFragment extends Fragment{
     private int PICK_IMAGE_REQUEST = 5;
     private Uri filePath;
 
+
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
                              Bundle savedInstanceState) {
         final View myView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        profile_pic = (ImageView) myView.findViewById(R.id.profile_pic_main);
+        profilePic = (ImageView) myView.findViewById(R.id.profile_pic_main);
         mFirebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mFirebaseAuth.getCurrentUser();
         uid = user.getUid();
@@ -91,21 +90,21 @@ public class ProfileFragment extends Fragment{
         storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Picasso.with(profile_pic.getContext()).load(uri).fit().into(profile_pic);
+                Picasso.with(profilePic.getContext()).load(uri).fit().into(profilePic);
             }
         });
         final LinearLayout linearLayout = (LinearLayout) myView.findViewById(R.id.myBikeCard);
         final View myBikeView = inflater.inflate(R.layout.list_item2,container,false);
-        ImageView profileView = (ImageView)  myView.findViewById(profile_pic_main);
 
-        profileView.setOnLongClickListener(new View.OnLongClickListener(){
+        profilePic.setOnLongClickListener(new View.OnLongClickListener(){
             @Override
             public boolean onLongClick(View v) {
                 /*Intent i = new Intent();
                 i.setType("image/*");
                 i.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(i, "Select an image"), PICK_IMAGE_REQUEST);
-                */Toast.makeText(getContext(),"Upload profile pic",Toast.LENGTH_LONG).show();
+                */
+                Toast.makeText(getContext(),"Upload profile pic",Toast.LENGTH_LONG).show();
                 startActivity(new Intent(getContext(), EditProfile.class));
                 //Edit Profile here
 
@@ -119,47 +118,85 @@ public class ProfileFragment extends Fragment{
                 if (dataSnapshot.hasChild(uid)){
                     linearLayout.removeView(myBikeView);
                     linearLayout.addView(myBikeView);
-                    myBikeView.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
-                            Intent editBikeIntent = new Intent(getActivity(), EditBike.class);
-                            Bundle bundle = new Bundle();
 
-                            String str[] = bikeAddress.split("\\s+");
-                            bundle.putStringArray("Bike Address",str);
-                            bundle.putString("Bike Name",bikeName);
-                            bundle.putString("Hour Price",String.valueOf(price.getHourly()));
-                            bundle.putString("Day Price",String.valueOf(price.getDaily()));
-                            bundle.putString("Week Price",String.valueOf(price.getWeekly()));
+                    if(dataSnapshot.child(uid).child("status").getValue().toString().equals("false")){
+
+                        myBikeView.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View v) {
+                                Intent editBikeIntent = new Intent(getActivity(), EditBike.class);
+                                Bundle bundle = new Bundle();
+
+                                String str[] = bikeAddress.split("\\s+");
+                                bundle.putStringArray("Bike Address",str);
+                                bundle.putString("Bike Name",bikeName);
+                                bundle.putString("Hour Price",String.valueOf(price.getHourly()));
+                                bundle.putString("Day Price",String.valueOf(price.getDaily()));
+                                bundle.putString("Week Price",String.valueOf(price.getWeekly()));
 
 
-                            final ImageView imageView = (ImageView) myView.findViewById(R.id.bike_Img);
-                            final BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
-                            final Bitmap yourBitmap = bitmapDrawable.getBitmap();
+                                final ImageView imageView = (ImageView) myView.findViewById(R.id.bike_Img);
+                                final BitmapDrawable bitmapDrawable = (BitmapDrawable) imageView.getDrawable();
+                                final Bitmap yourBitmap = bitmapDrawable.getBitmap();
 
-                            editBikeIntent.putExtra("BitmapImage", yourBitmap);
-                            editBikeIntent.putExtras(bundle);
-                            startActivity(editBikeIntent);
-                            return false;
-                        }
-                    });
+                                editBikeIntent.putExtra("BitmapImage", yourBitmap);
+                                editBikeIntent.putExtras(bundle);
+                                startActivity(editBikeIntent);
+                                return false;
+                            }
+                        });
+
+                    }
+
                     //Switch code for ready and non ready state switching
                     final Switch readySwitch = (Switch) myView.findViewById(R.id.ready_switch);
-                    readySwitch.setOnClickListener(new View.OnClickListener(){
-                        @Override
-                        public void onClick(View v) {
-                            if (readySwitch.isChecked()){
-                                mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
-                                //code for ready state
-                                Toast.makeText(getActivity(),"Online and ready to lend", LENGTH_SHORT).show();
+
+                    /*if(dataSnapshot.child(uid).child("status").getValue().toString().equals("true")){
+                        readySwitch.setEnabled(false);
+                        mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
+                        myBikeView.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                Toast.makeText(getContext(),"The rider has to end the tide first.",LENGTH_SHORT).show();
+                                return false;
                             }
-                            else{
-                                mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
-                                //code for non ready state
-                                Toast.makeText(getActivity(),"Offline", LENGTH_SHORT).show();
+                        });
+                    }
+                    else */if(dataSnapshot.child(uid).child("status").getValue().toString().equals("false")){
+                        readySwitch.setEnabled(true);
+                        readySwitch.setOnClickListener(new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v) {
+                                if (readySwitch.isChecked()){
+                                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
+                                    //code for ready state
+                                    Toast.makeText(getActivity(),"Online and ready to lend", LENGTH_SHORT).show();
+                                }
+                                else{
+                                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
+                                    //code for non ready state
+                                    Toast.makeText(getActivity(),"Offline", LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
+                    else{
+                        readySwitch.setOnClickListener(new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v) {
+                                if (readySwitch.isChecked()){
+                                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("true");
+                                    //code for ready state
+                                    Toast.makeText(getActivity(),"Online and ready to lend", LENGTH_SHORT).show();
+                                }
+                                else{
+                                    mDatabaseReference.child("Cycle").child(uid).child("boolean").setValue("false");
+                                    //code for non ready state
+                                    Toast.makeText(getActivity(),"Offline", LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
                 }
                 else{
                     TextView myBikeView = new TextView(getContext());
@@ -175,6 +212,8 @@ public class ProfileFragment extends Fragment{
 
             }
         });
+
+
         mDatabaseReference.child("Cycle").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
