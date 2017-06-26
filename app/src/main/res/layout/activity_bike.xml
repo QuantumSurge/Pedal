@@ -15,15 +15,14 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     </ListView>
-    <android.support.design.widget.FloatingActionButton
+   <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="20dp"
         android:src="@drawable/filter_icon"
         android:id="@+id/filter_btn"
-        android:backgroundTint="#F44336"
-        android:background="#F44336"
+        app:backgroundTint="#F44336"
         app:rippleColor="#F44336"/>
 
     <android.support.v4.widget.NestedScrollView
