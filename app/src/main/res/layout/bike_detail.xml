@@ -63,7 +63,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="Hour"
+                            android:text="Hourly(₹)"
                             android:textSize="12sp" />
                         <TextView
                             android:id="@+id/mHourlyPrice"
@@ -82,7 +82,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="Day"
+                            android:text="Daily(₹)"
                             android:textSize="12sp" />
                         <TextView
                             android:id="@+id/mDailyPrice"
@@ -101,7 +101,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="Week"
+                            android:text="Weekly(₹)"
                             android:textSize="12sp" />
                         <TextView
                             android:id="@+id/mWeeklyPrice"

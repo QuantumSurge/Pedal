@@ -12,4 +12,9 @@
         android:orderInCategory="100"
         android:title="Lend Bike"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/about_app"
+        android:orderInCategory="100"
+        android:title="About App"
+        app:showAsAction="never"/>
 </menu>

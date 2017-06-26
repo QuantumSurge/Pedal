@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:hint="bike name(geared or not)"
+        android:hint="Bike Name(Geared or not)"
         android:textSize="24sp"/>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:hint="Room No"
+            android:hint="Room No."
             android:inputType="number"
             android:textSize="24sp"/>
     </LinearLayout>
@@ -56,7 +56,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:outlineProvider="bounds"
-            android:text="Hourly Price"
+            android:text="Hourly(₹)"
             android:textAllCaps="true" />
         <TextView
             android:layout_width="0dp"
@@ -65,7 +65,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:outlineProvider="bounds"
-            android:text="daily Price"
+            android:text="Daily(₹)"
             android:textAllCaps="true"/>
         <TextView
             android:layout_width="0dp"
@@ -74,7 +74,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:outlineProvider="bounds"
-            android:text="Weekly Price"
+            android:text="Weekly(₹)"
             android:textAllCaps="true"/>
     </LinearLayout>
     <LinearLayout

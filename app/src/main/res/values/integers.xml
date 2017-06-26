@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <integer name="maxPriceForHour">30</integer>
+    <integer name="maxPriceForHour">10</integer>
     <integer name="minPriceForHour">0</integer>
-    <integer name="maxPriceForDay">30</integer>
+    <integer name="maxPriceForDay">60</integer>
     <integer name="minPriceForDay">0</integer>
-    <integer name="maxPriceForWeek">30</integer>
+    <integer name="maxPriceForWeek">300</integer>
     <integer name="minPriceForWeek">0</integer>
 </resources>

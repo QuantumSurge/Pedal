@@ -78,6 +78,7 @@ public class Mainpage extends AppCompatActivity {
                     }
                 });
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
