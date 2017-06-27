@@ -125,6 +125,9 @@ public class AddBike extends AppCompatActivity {
                                 }
                             });
                 }
+                else{
+                    Toast.makeText(AddBike.this, "Please upload an image", Toast.LENGTH_SHORT).show();
+                }
                 progress.dismiss();
 
             }
